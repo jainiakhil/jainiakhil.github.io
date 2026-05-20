@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "outreaches",
+  "info": {
+    "singularName": "outreach",
+    "pluralName": "outreaches",
+    "displayName": "Outreach Activity",
+    "description": "Public lectures, community physics events, and student telescope nights"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "organisation": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "imageUrl": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

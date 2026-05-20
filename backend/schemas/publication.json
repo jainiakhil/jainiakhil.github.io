@@ -1,0 +1,61 @@
+{
+  "kind": "collectionType",
+  "collectionName": "publications",
+  "info": {
+    "singularName": "publication",
+    "pluralName": "publications",
+    "displayName": "Publication",
+    "description": "Stellar academic papers and conference proceedings"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "authors": {
+      "type": "string",
+      "required": true
+    },
+    "abstract": {
+      "type": "text",
+      "required": true
+    },
+    "journal": {
+      "type": "string",
+      "required": true
+    },
+    "year": {
+      "type": "integer",
+      "required": true,
+      "min": 1900,
+      "max": 2100
+    },
+    "doi": {
+      "type": "string"
+    },
+    "arxivUrl": {
+      "type": "string"
+    },
+    "adsUrl": {
+      "type": "string"
+    },
+    "imageUrl": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "FRB",
+        "Astrometry",
+        "Machine Learning",
+        "Instrumentation",
+        "General"
+      ],
+      "required": true,
+      "default": "General"
+    }
+  }
+}
