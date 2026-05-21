@@ -1,14 +1,15 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
-import { Sparkles, Milestone, Compass, Cpu, Telescope } from "lucide-react";
 
 export default function About() {
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { 
+        staggerChildren: 0.25, // Stagger elements slowly and dreamily
+      },
     },
   };
 
@@ -17,118 +18,95 @@ export default function About() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
+      transition: { 
+        duration: 1.2, 
+        ease: [0.25, 0.1, 0.25, 1.0], // dreamy easeInOut
+      },
     },
   };
 
   return (
-    <section id="about" className="py-24 px-6 relative overflow-hidden bg-background-secondary/10">
-      <div className="max-w-7xl mx-auto z-10 relative">
-        
-        {/* Section Heading */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <h2 className="font-space text-3xl sm:text-5xl font-extrabold text-text-primary tracking-tight">
-            Mission Briefing
-          </h2>
-          <div className="w-16 h-1.5 bg-gradient-to-r from-accent-primary to-accent-secondary mt-3 rounded-full" />
-          <p className="text-text-secondary text-xs sm:text-sm font-semibold uppercase tracking-widest mt-3">
-            About the Voyager
-          </p>
-        </div>
+    <section id="about" className="py-32 px-6 relative overflow-hidden z-10">
+      
+      {/* Section Heading (Z-Sandwich: z-10) */}
+      <div className="flex flex-col items-center text-center mb-20 z-10 relative select-none">
+        <h2 className="font-display text-4xl sm:text-5xl font-bold text-text-primary tracking-tight">
+          About Me
+        </h2>
+        <p className="text-text-secondary text-xs sm:text-sm font-medium mt-3 opacity-80">
+          a little glimpse into my journey under the stars
+        </p>
+      </div>
 
+      {/* Drifting Atmosphere Clouds (Z-Sandwich: z-20) */}
+      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden select-none">
+        <motion.div
+          animate={{ x: ["-20%", "120%"] }}
+          transition={{ repeat: Infinity, duration: 90, ease: "linear" }}
+          className="absolute top-8 left-0 w-96 h-36 opacity-[0.28] sm:opacity-[0.38]"
+        >
+          <svg className="w-full h-full text-background-secondary/35 fill-current filter blur-xl" viewBox="0 0 300 120">
+            <path d="M 30 90 C 30 70, 60 60, 80 60 C 100 30, 160 20, 200 50 C 230 35, 270 50, 270 80 C 285 80, 295 90, 295 100 C 295 110, 30 110, 30 90 Z" />
+          </svg>
+        </motion.div>
+        
+        <motion.div
+          animate={{ x: ["120%", "-20%"] }}
+          transition={{ repeat: Infinity, duration: 110, ease: "linear" }}
+          className="absolute bottom-12 right-0 w-[450px] h-40 opacity-[0.22] sm:opacity-[0.32]"
+        >
+          <svg className="w-full h-full text-background-secondary/25 fill-current filter blur-2xl" viewBox="0 0 400 150">
+            <path d="M 50 120 C 50 90, 90 80, 110 80 C 130 50, 210 40, 250 70 C 290 50, 350 70, 350 110 C 370 110, 390 120, 390 135 C 390 150, 50 150, 50 120 Z" />
+          </svg>
+        </motion.div>
+      </div>
+
+      {/* Main Interactive Content (Z-Sandwich: z-30) */}
+      <div className="max-w-6xl mx-auto z-30 relative">
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center"
         >
-          {/* Left: Astronaut Profile Card */}
-          <motion.div variants={itemVariants} className="lg:col-span-5 flex justify-center">
-            <div className="relative w-full max-w-sm glass rounded-3xl p-6 border border-card-border/80 shadow-2xl flex flex-col items-center text-center group">
-              {/* Spinning decorative orbits */}
-              <div className="absolute inset-0 rounded-3xl border border-dashed border-accent-primary/5 pointer-events-none group-hover:scale-102 transition-transform duration-500" />
-              
-              {/* Profile Image / Styled Placeholder */}
-              <div className="relative w-40 h-40 rounded-full overflow-hidden bg-slate-900 border-2 border-accent-primary/30 p-1 mb-6">
-                <svg className="w-full h-full text-slate-400 fill-current p-4" viewBox="0 0 24 24">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
+          {/* Left Column: Portrait Photo Placeholder & Brand */}
+          <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col items-center text-center">
+            
+            {/* PORTRAIT PHOTO PLACEHOLDER */}
+            {/* PLACEHOLDER: Replace the SVG inside this container with an <img> tag to display your custom photo */}
+            <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden bg-card-bg/25 border-2 border-accent-primary/20 p-1.5 mb-6 shadow-md transition-transform duration-500 hover:border-accent-secondary/30">
+              <div className="w-full h-full rounded-full overflow-hidden bg-background-secondary/15 flex items-center justify-center">
+                <svg className="w-1/2 h-1/2 text-text-secondary/30 fill-current" viewBox="0 0 24 24">
+                  <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                 </svg>
-                {/* Overlay Glow */}
-                <div className="absolute inset-0 bg-gradient-to-t from-accent-primary/10 to-transparent pointer-events-none" />
               </div>
-
-              {/* Title & Position */}
-              <h3 className="font-space text-xl font-bold text-text-primary">
-                A. Sharma, PhD
-              </h3>
-              <p className="text-xs font-semibold text-accent-primary uppercase tracking-wider mb-6">
-                Astrophysical Systems Developer
-              </p>
-
-              {/* Scientific Mission Stats */}
-              <div className="grid grid-cols-2 gap-4 w-full border-t border-card-border/80 pt-6">
-                <div className="flex flex-col items-center">
-                  <span className="font-space text-2xl font-extrabold text-accent-primary">14</span>
-                  <span className="text-[10px] uppercase font-bold text-text-secondary tracking-widest">FRBs Found</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-space text-2xl font-extrabold text-accent-secondary">1.2M</span>
-                  <span className="text-[10px] uppercase font-bold text-text-secondary tracking-widest">Lines of Code</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-space text-2xl font-extrabold text-accent-secondary">12</span>
-                  <span className="text-[10px] uppercase font-bold text-text-secondary tracking-widest">Observatories</span>
-                </div>
-                <div className="flex flex-col items-center">
-                  <span className="font-space text-2xl font-extrabold text-accent-primary">8</span>
-                  <span className="text-[10px] uppercase font-bold text-text-secondary tracking-widest">Papers</span>
-                </div>
-              </div>
+              {/* Soft lunar edge glow overlay */}
+              <div className="absolute inset-0 rounded-full border border-white/5 pointer-events-none" />
             </div>
+
+            {/* Profile Name & Soft Tagline */}
+            <h3 className="font-display text-2xl font-bold text-text-primary">
+              Akhil Jaini
+            </h3>
+            <p className="text-sm font-medium text-accent-secondary mt-1 max-w-xs leading-relaxed">
+              astrophysicist, starry-eyed builder, and dream chaser
+            </p>
           </motion.div>
 
-          {/* Right: Narrative Description */}
+          {/* Right Column: Warm, letter-like biography narrative */}
           <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col gap-6 text-left">
-            <h3 className="font-space text-2xl font-bold text-text-primary flex items-center gap-2">
-              <Compass className="w-5 h-5 text-accent-primary animate-pulse" />
-              Voyage Log: Entry #82
-            </h3>
-            
-            <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-medium">
-              I am a computational astrophysicist, systems architect, and hardware engineer specializing in high-performance computing, signal processing, and stellar kinematics. My mission is to bridge the gap between complex science and software engineering. I develop GPU-accelerated pipelines that process massive radio telemetry streams to capture millisecond transient signals, and I construct orbital simulators that model stellar dynamics around supermassive black holes.
+            <p className="text-sm sm:text-base text-text-secondary leading-[1.8] font-medium">
+              I've always been drawn to the night sky. There's something magical about looking up from a quiet, grassy field and wondering what's out there. My journey began with that simple childhood curiosity, which eventually led me to study physics and astronomy. Today, as an astrophysicist, I get to spend my time searching for fleeting bursts of radio light from galaxies billions of light-years away, and writing code that simulates the graceful, sweeping dances of stars orbiting supermassive black holes.
             </p>
             
-            <p className="text-sm sm:text-base text-text-secondary leading-relaxed font-medium">
-              By combining robust theoretical research with custom CUDA pipelines, TypeScript architectures, and game-like vector simulations, I build tools that expand our observational capabilities and translate vast scientific datasets into highly polished, meaningful, and interactive digital interfaces.
+            <p className="text-sm sm:text-base text-text-secondary leading-[1.8] font-medium">
+              But I've always believed that science shouldn't feel cold, rigid, or unreachable. To me, programming is a deeply creative medium — a way to weave complex cosmic datasets into warm, beautiful, and interactive experiences. Whether I'm optimization-tuning high-performance computing pipelines or crafting playful web interfaces, my goal is to build spaces that let others share in the child-like wonder of looking up at the stars.
             </p>
-
-            {/* Reusable Technology Icons shelf */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4">
-              <div className="glass p-3 rounded-2xl flex items-center gap-3 border border-card-border shadow-sm">
-                <Cpu className="w-4 h-4 text-accent-primary" />
-                <span className="text-xs font-bold text-text-primary tracking-wide">CUDA / GPU</span>
-              </div>
-              <div className="glass p-3 rounded-2xl flex items-center gap-3 border border-card-border shadow-sm">
-                <Telescope className="w-4 h-4 text-accent-secondary" />
-                <span className="text-xs font-bold text-text-primary tracking-wide">Signal Proc</span>
-              </div>
-              <div className="glass p-3 rounded-2xl flex items-center gap-3 border border-card-border shadow-sm">
-                <Milestone className="w-4 h-4 text-accent-secondary" />
-                <span className="text-xs font-bold text-text-primary tracking-wide">Relativity</span>
-              </div>
-              <div className="glass p-3 rounded-2xl flex items-center gap-3 border border-card-border shadow-sm">
-                <Sparkles className="w-4 h-4 text-accent-primary" />
-                <span className="text-xs font-bold text-text-primary tracking-wide">Web Design</span>
-              </div>
-            </div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Twinkling star decorations */}
-      <div className="absolute top-10 left-10 text-accent-primary/20 text-xl animate-pulse">✦</div>
-      <div className="absolute bottom-10 right-10 text-accent-secondary/20 text-2xl animate-pulse">✦</div>
     </section>
   );
 }

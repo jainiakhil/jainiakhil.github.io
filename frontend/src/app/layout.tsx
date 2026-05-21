@@ -25,20 +25,20 @@ const fredoka = Fredoka({
 });
 
 export const metadata: Metadata = {
-  title: "Voyaging the Cosmos — Portfolio of an Astrophysicist & Engineer",
-  description: "A highly interactive, space-themed personal portfolio showcasing astrophysical research projects, scientific publications, astronomical calculations, and creative engineering code.",
-  keywords: ["Astrophysics", "Space Engineering", "FRB Research", "Data Visualization", "Fullstack Engineer", "Research Portfolio"],
-  authors: [{ name: "Astrophysicist & Engineer Portfolio" }],
+  title: "Akhil Jaini — Stargazer & Astrophysicist",
+  description: "A personal corner of the web where I share my research on the night sky, the code I write, and the places I've been.",
+  keywords: ["Akhil Jaini", "Astrophysics", "Night Sky", "Research", "FRB", "Creative Engineering"],
+  authors: [{ name: "Akhil Jaini" }],
   openGraph: {
-    title: "Voyaging the Cosmos — Portfolio of an Astrophysicist & Engineer",
-    description: "An immersive, playful, yet professional portfolio showcasing stellar research and software systems.",
+    title: "Akhil Jaini — Stargazer & Astrophysicist",
+    description: "A dreamy personal portfolio sharing astrophysical research, code, and adventures under the stars.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cosmos Voyager — Astrophysics Portfolio",
-    description: "An immersive digital voyage through transient searches, orbital engineering, and web development.",
+    title: "Akhil Jaini — Astrophysicist",
+    description: "A dreamy personal portfolio sharing astrophysical research, code, and adventures under the stars.",
   },
 };
 
@@ -53,7 +53,7 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${fredoka.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans overflow-x-hidden">
+      <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           {children}
         </ThemeProvider>

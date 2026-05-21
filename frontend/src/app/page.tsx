@@ -10,7 +10,6 @@ import Publications from "src/components/home/Publications";
 import Repos from "src/components/home/Repos";
 import Others from "src/components/home/Others";
 import Contact from "src/components/home/Contact";
-import { Orbit } from "lucide-react";
 
 export default function Home() {
   return (
@@ -23,8 +22,8 @@ export default function Home() {
       {/* 2. Layout Navigation */}
       <Navbar />
 
-      {/* 3. Main Content Sections */}
-      <main className="flex-1 w-full relative z-10">
+      {/* 3. Main Content Sections — generous spacing so each section breathes */}
+      <main className="flex-1 w-full relative z-10 space-y-8">
         <Hero />
         <About />
         <Timeline />
@@ -35,36 +34,18 @@ export default function Home() {
         <Contact />
       </main>
 
-      {/* 4. Elegant Footer */}
-      <footer className="w-full relative z-10 border-t border-card-border/60 py-10 px-6 glass text-center">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 text-left">
-          
-          {/* Logo & description */}
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <div className="relative w-7 h-7 rounded-full bg-accent-primary/10 flex items-center justify-center border border-accent-primary/20">
-                <Orbit className="w-4 h-4 text-accent-primary animate-spin-slow" />
-              </div>
-              <span className="font-space font-extrabold text-sm tracking-widest bg-gradient-to-r from-text-primary via-accent-primary to-accent-secondary bg-clip-text text-transparent">
-                COSMOS.VOYAGER
-              </span>
-            </div>
-            <p className="text-[10px] sm:text-xs font-semibold text-text-secondary leading-relaxed max-w-sm">
-              An immersive digital portal showcasing astrophysical telemetry, CUDA parallel programming, and web mechanics. Designed with care.
-            </p>
-          </div>
-
-          {/* System status / telemetry values */}
-          <div className="flex flex-col md:items-end gap-1.5 text-left md:text-right">
-            <div className="flex items-center gap-2 text-[10px] font-bold text-accent-primary uppercase tracking-widest">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              All Systems Operational
-            </div>
-            <p className="text-[10px] font-semibold text-text-secondary uppercase tracking-widest">
-              © {new Date().getFullYear()} Cosmos Voyager. Built under MIT License.
-            </p>
-          </div>
-          
+      {/* 4. Soft, warm footer */}
+      <footer className="w-full relative z-10 py-14 px-6 dreamcard text-center">
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-3">
+          <span className="font-display text-lg font-semibold text-text-primary">
+            Akhil Jaini
+          </span>
+          <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-md">
+            A quiet corner of the web — sharing stardust, code, and curiosity.
+          </p>
+          <p className="text-[10px] text-text-secondary/60 mt-2">
+            © {new Date().getFullYear()} Akhil Jaini
+          </p>
         </div>
       </footer>
     </div>

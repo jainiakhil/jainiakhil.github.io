@@ -35,30 +35,42 @@ export default function Timeline() {
   if (loading) {
     return (
       <div className="py-24 text-center">
-        <div className="w-10 h-10 border-4 border-dashed border-accent-primary rounded-full animate-spin mx-auto" />
+        <div className="w-8 h-8 border-2 border-dashed border-accent-primary rounded-full animate-spin mx-auto opacity-60" />
       </div>
     );
   }
 
   return (
-    <section id="timeline" className="py-24 px-6 overflow-hidden">
-      <div className="max-w-7xl mx-auto z-10 relative">
+    <section id="timeline" className="py-32 px-6 overflow-hidden z-0 relative">
+      {/* Drifting Clouds (Z-Sandwich: z-20) */}
+      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden select-none">
+        <motion.div
+          animate={{ x: ["-30%", "120%"] }}
+          transition={{ repeat: Infinity, duration: 100, ease: "linear" }}
+          className="absolute top-16 left-0 w-96 h-32 opacity-[0.25] sm:opacity-[0.35]"
+        >
+          <svg className="w-full h-full text-background-secondary/30 fill-current filter blur-xl" viewBox="0 0 300 120">
+            <path d="M 30 90 C 30 70, 60 60, 80 60 C 100 30, 160 20, 200 50 C 230 35, 270 50, 270 80 C 285 80, 295 90, 295 100 C 295 110, 30 110, 30 90 Z" />
+          </svg>
+        </motion.div>
+      </div>
+
+      <div className="max-w-7xl mx-auto z-30 relative">
         
-        {/* Heading */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <h2 className="font-space text-3xl sm:text-5xl font-extrabold text-text-primary tracking-tight">
-            Orbital Trajectory
+        {/* Heading (Z-Sandwich: z-10) */}
+        <div className="flex flex-col items-center text-center mb-24 z-10 relative select-none">
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-text-primary tracking-tight">
+            My Path
           </h2>
-          <div className="w-16 h-1.5 bg-gradient-to-r from-accent-primary to-accent-secondary mt-3 rounded-full" />
-          <p className="text-text-secondary text-xs sm:text-sm font-semibold uppercase tracking-widest mt-3">
-            Career Milestones & Education
+          <p className="text-text-secondary text-xs sm:text-sm font-medium mt-3 opacity-85">
+            where I've been along the way
           </p>
         </div>
 
         {/* Desktop View: Horizontal Scroll Tracker */}
         <div className="hidden lg:block relative py-12">
-          {/* Horizontal Track Line */}
-          <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-primary/20 via-accent-secondary/30 to-accent-primary/20 -translate-y-1/2 border-dashed border-t border-card-border pointer-events-none" />
+          {/* Horizontal Dotted Line Path - soft and low-opacity */}
+          <div className="absolute top-1/2 left-0 right-0 h-0 border-t-2 border-dotted border-card-border/30 -translate-y-1/2 pointer-events-none" />
 
           {/* Cards Flex Container */}
           <div className="flex justify-between items-center gap-6 relative">
@@ -68,49 +80,47 @@ export default function Timeline() {
                 initial={{ opacity: 0, y: index % 2 === 0 ? -40 : 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.7, delay: index * 0.15, ease: "easeOut" }}
+                transition={{ duration: 1.0, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1.0] }}
                 className="flex-1 flex flex-col items-center text-center max-w-[280px]"
               >
                 {/* Upper Cards */}
                 {index % 2 === 0 && (
-                  <div className="glass p-5 rounded-2xl border border-card-border shadow-md mb-8 hover:border-accent-primary/40 hover:-translate-y-1 transition-all duration-300 relative group min-h-[140px]">
-                    <span className="text-[10px] font-bold text-accent-primary uppercase tracking-widest mb-1 block">
+                  <div className="dreamcard p-5 shadow-sm mb-8 relative min-h-[140px] text-center">
+                    <span className="text-[10px] font-semibold text-accent-primary uppercase tracking-wider mb-1 block">
                       {entry.dates}
                     </span>
-                    <h4 className="font-space font-bold text-sm text-text-primary mb-1">
+                    <h4 className="font-display font-bold text-sm text-text-primary mb-1">
                       {entry.role}
                     </h4>
-                    <p className="text-[11px] font-semibold text-text-secondary mb-2 uppercase">
+                    <p className="text-[10px] font-medium text-text-secondary mb-2 uppercase tracking-wide">
                       {entry.institution}
                     </p>
-                    <p className="text-[11px] text-text-secondary leading-relaxed">
+                    <p className="text-[11px] text-text-secondary leading-relaxed font-medium">
                       {entry.description}
                     </p>
                   </div>
                 )}
 
-                {/* Trajectory Node (Orbital Bullet) */}
-                <div className="w-10 h-10 rounded-full glass border border-card-border flex items-center justify-center relative z-10 shadow-lg group-hover:scale-110 transition-transform bg-background">
-                  <div className="w-6 h-6 rounded-full bg-accent-primary/10 flex items-center justify-center border border-accent-primary/25">
+                {/* Trajectory Node (Celestial Icon) - No breathing rings or scaling on hover */}
+                <div className="w-10 h-10 rounded-full dreamcard flex items-center justify-center relative z-10 shadow-sm bg-background-secondary/10">
+                  <div className="w-6 h-6 rounded-full bg-accent-primary/5 flex items-center justify-center border border-accent-primary/10">
                     {getIcon(entry.type)}
                   </div>
-                  {/* Outer breathing ring */}
-                  <div className="absolute inset-0 rounded-full border border-accent-primary/20 animate-pulse scale-125" />
                 </div>
 
                 {/* Lower Cards */}
                 {index % 2 !== 0 && (
-                  <div className="glass p-5 rounded-2xl border border-card-border shadow-md mt-8 hover:border-accent-secondary/40 hover:translate-y-1 transition-all duration-300 relative group min-h-[140px]">
-                    <span className="text-[10px] font-bold text-accent-secondary uppercase tracking-widest mb-1 block">
+                  <div className="dreamcard p-5 shadow-sm mt-8 relative min-h-[140px] text-center">
+                    <span className="text-[10px] font-semibold text-accent-secondary uppercase tracking-wider mb-1 block">
                       {entry.dates}
                     </span>
-                    <h4 className="font-space font-bold text-sm text-text-primary mb-1">
+                    <h4 className="font-display font-bold text-sm text-text-primary mb-1">
                       {entry.role}
                     </h4>
-                    <p className="text-[11px] font-semibold text-text-secondary mb-2 uppercase">
+                    <p className="text-[10px] font-medium text-text-secondary mb-2 uppercase tracking-wide">
                       {entry.institution}
                     </p>
-                    <p className="text-[11px] text-text-secondary leading-relaxed">
+                    <p className="text-[11px] text-text-secondary leading-relaxed font-medium">
                       {entry.description}
                     </p>
                   </div>
@@ -121,35 +131,35 @@ export default function Timeline() {
         </div>
 
         {/* Mobile View: Vertical Stacked Timeline */}
-        <div className="lg:hidden relative pl-8 border-l-2 border-dashed border-card-border/80 flex flex-col gap-10">
+        <div className="lg:hidden relative pl-8 border-l-2 border-dotted border-card-border/20 flex flex-col gap-10">
           {timeline.map((entry, index) => (
             <motion.div
               key={entry.id}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              transition={{ duration: 1.0, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1.0] }}
               className="relative"
             >
               {/* Bullet Node */}
-              <div className="absolute -left-[53px] top-1.5 w-10 h-10 rounded-full glass border border-card-border bg-background flex items-center justify-center shadow-md">
-                <div className="w-6 h-6 rounded-full bg-accent-primary/10 flex items-center justify-center border border-accent-primary/25">
+              <div className="absolute -left-[53px] top-1.5 w-10 h-10 rounded-full dreamcard bg-background flex items-center justify-center shadow-sm">
+                <div className="w-6 h-6 rounded-full bg-accent-primary/5 flex items-center justify-center border border-accent-primary/10">
                   {getIcon(entry.type)}
                 </div>
               </div>
 
               {/* Content Box */}
-              <div className="glass p-5 rounded-2xl border border-card-border shadow-md active:scale-98 transition-transform">
-                <span className="text-[10px] font-bold text-accent-primary uppercase tracking-widest mb-1 block">
+              <div className="dreamcard p-5 shadow-sm">
+                <span className="text-[10px] font-semibold text-accent-primary uppercase tracking-wider mb-1 block">
                   {entry.dates}
                 </span>
-                <h4 className="font-space font-extrabold text-base text-text-primary mb-1">
+                <h4 className="font-display font-bold text-base text-text-primary mb-1">
                   {entry.role}
                 </h4>
-                <p className="text-xs font-semibold text-text-secondary mb-3 uppercase tracking-wide">
+                <p className="text-xs font-medium text-text-secondary mb-3 uppercase tracking-wide">
                   {entry.institution}
                 </p>
-                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed">
+                <p className="text-xs sm:text-sm text-text-secondary leading-relaxed font-medium">
                   {entry.description}
                 </p>
               </div>

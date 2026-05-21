@@ -2,18 +2,17 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Orbit, Menu, X, ArrowUpRight } from "lucide-react";
-import ThemeToggle from "src/components/ui/ThemeToggle";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
-  { label: "Hero", href: "#hero" },
+  { label: "Home", href: "#hero" },
   { label: "About", href: "#about" },
-  { label: "Timeline", href: "#timeline" },
+  { label: "My Path", href: "#timeline" },
   { label: "Research", href: "#research" },
-  { label: "Publications", href: "#publications" },
+  { label: "Papers", href: "#publications" },
   { label: "Code", href: "#code" },
-  { label: "Outreach & Awards", href: "#others" },
-  { label: "Contact", href: "#contact" },
+  { label: "Adventures", href: "#others" },
+  { label: "Say Hello", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -40,58 +39,53 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 ${
           scrolled
-            ? "py-3 bg-background/55 backdrop-blur-md border-b border-card-border/80 shadow-lg"
+            ? "py-3 bg-background/40 backdrop-blur-lg border-b border-card-border/40 shadow-sm"
             : "py-5 bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-          {/* Logo Brand */}
+          {/* Logo / Name */}
           <a
             href="#hero"
             onClick={(e) => handleNavClick(e, "#hero")}
-            className="flex items-center gap-2.5 group cursor-pointer"
+            className="flex items-center gap-2 group cursor-pointer"
           >
-            <div className="relative w-9 h-9 rounded-full bg-accent-primary/10 flex items-center justify-center border border-accent-primary/30 group-hover:border-accent-primary group-hover:scale-105 transition-all duration-300">
-              <Orbit className="w-5 h-5 text-accent-primary animate-spin-slow group-hover:text-accent-secondary" />
-            </div>
-            <span className="font-space font-bold text-lg tracking-wide bg-gradient-to-r from-text-primary via-accent-primary to-accent-secondary bg-clip-text text-transparent">
-              Cosmos.Voyager
+            <span className="text-base select-none" aria-hidden="true">✦</span>
+            <span className="font-display font-semibold text-lg text-text-primary group-hover:text-accent-primary transition-colors duration-300">
+              Akhil Jaini
             </span>
           </a>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden lg:flex items-center gap-1.5 glass px-4 py-1.5 rounded-full border border-card-border/80 shadow-md">
+          <nav className="hidden lg:flex items-center gap-1 dreamcard px-3 py-1.5 rounded-full border border-card-border/40">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={(e) => handleNavClick(e, item.href)}
-                className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-text-secondary hover:text-text-primary hover:bg-card-bg/25 transition-all duration-200 uppercase tracking-widest"
+                className="px-3 py-1.5 rounded-full text-xs font-semibold text-text-secondary hover:text-text-primary hover:bg-card-bg/25 transition-all duration-300"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Actions: Theme Toggle & Mobile Trigger */}
+          {/* Actions: Mobile Trigger & CV */}
           <div className="flex items-center gap-3">
-            <ThemeToggle />
-            
-            {/* CV Download CTA */}
+            {/* CV link — warm, soft treatment */}
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="hidden sm:flex items-center gap-1 text-xs font-bold uppercase tracking-widest px-4 py-2.5 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary text-white hover:shadow-lg hover:shadow-accent-primary/20 hover:scale-103 transition-all duration-300 active:scale-97 cursor-pointer"
+              className="hidden sm:flex items-center text-xs font-semibold px-4 py-2 rounded-full bg-accent-primary/80 text-white hover:bg-accent-primary hover:shadow-md hover:shadow-accent-primary/10 transition-all duration-300 cursor-pointer active:scale-97"
             >
-              CV
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              résumé
             </a>
 
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full glass border border-card-border hover:bg-card-bg/20 text-text-primary cursor-pointer active:scale-95 transition-all"
+              className="lg:hidden p-2 rounded-full dreamcard border border-card-border/40 hover:bg-card-bg/20 text-text-primary cursor-pointer active:scale-95 transition-all"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -100,15 +94,15 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile Drawer menu */}
+      {/* Mobile Drawer — soft overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-x-0 top-[72px] z-40 bg-background/95 backdrop-blur-xl border-b border-card-border/80 shadow-2xl p-6 lg:hidden"
+            transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1.0] }}
+            className="fixed inset-x-0 top-[72px] z-40 dreamcard backdrop-blur-xl border-b border-card-border/40 shadow-lg p-6 lg:hidden"
           >
             <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
@@ -116,7 +110,7 @@ export default function Navbar() {
                   key={item.label}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="px-4 py-3 rounded-xl text-sm font-semibold text-text-secondary hover:text-text-primary hover:bg-card-bg/40 transition-all uppercase tracking-widest"
+                  className="px-4 py-3 rounded-xl text-sm font-semibold text-text-secondary hover:text-text-primary hover:bg-card-bg/20 transition-all duration-300"
                 >
                   {item.label}
                 </a>
@@ -124,9 +118,9 @@ export default function Navbar() {
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, "#contact")}
-                className="mt-2 text-center text-xs font-bold uppercase tracking-widest py-3.5 rounded-xl bg-gradient-to-r from-accent-primary to-accent-secondary text-white transition-all shadow-md"
+                className="mt-2 text-center text-sm font-semibold py-3 rounded-xl bg-accent-primary/80 text-white hover:bg-accent-primary transition-all duration-300"
               >
-                Download CV
+                résumé
               </a>
             </nav>
           </motion.div>

@@ -1,33 +1,35 @@
 @import "tailwindcss";
 
 :root {
-  /* Light mode theme colors */
-  --background: #DDF3FF;
-  --background-secondary: #BFE6FF;
-  --card-bg: rgba(255, 255, 255, 0.4);
-  --card-border: rgba(255, 255, 255, 0.5);
-  --text-primary: #0F172A;
-  --text-secondary: #334155;
-  --accent-primary: #2563EB;
-  --accent-secondary: #EC4899;
-  --nebula-glow: radial-gradient(circle, rgba(236, 72, 153, 0.12) 0%, rgba(37, 99, 235, 0.04) 100%);
-  --sky-gradient: linear-gradient(180deg, #A5DCFF 0%, #DDF3FF 100%);
-  --star-color: rgba(37, 99, 235, 0.2);
+  /* Warm golden-hour sky palette — feels like sunset fading into dusk */
+  --background: #FDF8F3;
+  --background-secondary: #F5EDE4;
+  --card-bg: rgba(255, 255, 255, 0.35);
+  --card-border: rgba(180, 140, 100, 0.08);
+  --text-primary: #3D2E24;
+  --text-secondary: #7A6558;
+  --accent-primary: #C47D2E;
+  --accent-secondary: #D4628A;
+  --moonlight-glow: radial-gradient(ellipse at 85% 18%, rgba(255, 220, 150, 0.18) 0%, rgba(255, 180, 100, 0.06) 40%, transparent 72%);
+  --sky-gradient: linear-gradient(180deg, #FEF0E0 0%, #FCE4CE 40%, #F5EDE4 100%);
+  --star-color: rgba(200, 160, 80, 0.25);
+  --ground-haze: linear-gradient(0deg, rgba(200, 170, 130, 0.08) 0%, transparent 30%);
 }
 
 .dark {
-  /* Dark mode theme colors (Default) */
-  --background: #07111F;
-  --background-secondary: #0D1B2A;
-  --card-bg: rgba(13, 27, 42, 0.45);
-  --card-border: rgba(255, 255, 255, 0.05);
-  --text-primary: #E2E8F0;
-  --text-secondary: #94A3B8;
-  --accent-primary: #7DD3FC;
-  --accent-secondary: #C084FC;
-  --nebula-glow: radial-gradient(circle, rgba(192, 132, 252, 0.08) 0%, rgba(125, 211, 252, 0.02) 100%);
-  --sky-gradient: linear-gradient(180deg, #040A12 0%, #07111F 100%);
+  /* Deep twilight palette — warm midnight, not cold sci-fi */
+  --background: #0B0E1A;
+  --background-secondary: #111525;
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(160, 190, 255, 0.06);
+  --text-primary: #E8E4F0;
+  --text-secondary: #9A95AB;
+  --accent-primary: #7CB8E4;
+  --accent-secondary: #D4A0C0;
+  --moonlight-glow: radial-gradient(ellipse at 85% 18%, rgba(180, 210, 255, 0.12) 0%, rgba(120, 160, 220, 0.05) 40%, transparent 72%);
+  --sky-gradient: linear-gradient(180deg, #06080F 0%, #0B0E1A 100%);
   --star-color: rgba(255, 255, 255, 0.9);
+  --ground-haze: linear-gradient(0deg, rgba(20, 25, 45, 0.6) 0%, transparent 25%);
 }
 
 @theme {
@@ -42,24 +44,34 @@
   
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-space: var(--font-space-grotesk), sans-serif;
-  --font-fredoka: var(--font-fredoka), sans-serif;
+  --font-display: var(--font-fredoka), sans-serif;
   
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-delayed: float-delayed 8s ease-in-out infinite;
-  --animate-pulse-slow: pulse-slow 8s ease-in-out infinite;
-  --animate-spin-slow: spin-slow 40s linear infinite;
+  --animate-drift: drift 24s ease-in-out infinite;
+  --animate-breathe: breathe 12s ease-in-out infinite;
+  --animate-moonlit: moonlit 16s ease-in-out infinite;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-float-delayed: float-delayed 11s ease-in-out infinite;
+  --animate-spin-slow: spin-slow 50s linear infinite;
 
+  @keyframes drift {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(8px); }
+  }
+  @keyframes breathe {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+  }
+  @keyframes moonlit {
+    0%, 100% { opacity: 0.85; filter: brightness(1); }
+    50% { opacity: 1; filter: brightness(1.06); }
+  }
   @keyframes float {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(1.5deg); }
+    50% { transform: translateY(-12px) rotate(0.8deg); }
   }
   @keyframes float-delayed {
     0%, 100% { transform: translateY(0px) rotate(0deg); }
     50% { transform: translateY(-8px) rotate(-1deg); }
-  }
-  @keyframes pulse-slow {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.7; }
   }
   @keyframes spin-slow {
     0% { transform: rotate(0deg); }
@@ -67,55 +79,88 @@
   }
 }
 
-/* Custom Scrollbar */
+/* Custom Scrollbar — subtle and warm */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   background: var(--card-border);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-primary);
 }
 
-/* Global Reset overrides for theme transition */
+/* Global body — warm transitions */
 html, body {
   background-color: var(--background);
   color: var(--text-primary);
-  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-              color 0.5s ease;
+  transition: background-color 1.2s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.8s ease;
   scroll-behavior: smooth;
+  line-height: 1.75;
+  letter-spacing: 0.01em;
 }
 
-/* Glassmorphism utilities */
-.glass {
+/* 
+ * Dreamcard — the primary container style.
+ * Near-invisible, atmospheric containers that blend into the night sky.
+ * Content should feel embedded in the environment, not boxed on a dashboard.
+ */
+.dreamcard {
   background: var(--card-bg);
-  backdrop-filter: blur(12px) saturate(120%);
-  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  backdrop-filter: blur(20px) saturate(105%);
+  -webkit-backdrop-filter: blur(20px) saturate(105%);
   border: 1px solid var(--card-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px -12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.8s ease, border-color 0.8s ease;
 }
 
-.glass-accent {
-  background: rgba(125, 211, 252, 0.03);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(125, 211, 252, 0.1);
+.dreamcard:hover {
+  border-color: rgba(200, 160, 80, 0.12);
+  box-shadow: 0 8px 40px -12px rgba(200, 160, 80, 0.06);
 }
 
-.dark .glass-accent {
-  background: rgba(13, 27, 42, 0.6);
-  border: 1px solid rgba(125, 211, 252, 0.1);
+.dark .dreamcard:hover {
+  border-color: rgba(160, 190, 255, 0.1);
+  box-shadow: 0 8px 40px -12px rgba(120, 160, 220, 0.06);
 }
 
-/* Text stroke utility for celestial elements */
-.text-stroke {
-  -webkit-text-stroke: 1px var(--text-secondary);
-  color: transparent;
+/* Legacy alias — gradually migrate away */
+.ghibli-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px) saturate(105%);
+  -webkit-backdrop-filter: blur(20px) saturate(105%);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px -12px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.8s ease, border-color 0.8s ease;
+}
+
+.ghibli-card:hover {
+  border-color: rgba(200, 160, 80, 0.12);
+  box-shadow: 0 8px 40px -12px rgba(200, 160, 80, 0.06);
+}
+
+.dark .ghibli-card:hover {
+  border-color: rgba(160, 190, 255, 0.1);
+  box-shadow: 0 8px 40px -12px rgba(120, 160, 220, 0.06);
+}
+
+/* Moonlight ambient overlay — apply to sections for environmental lighting */
+.moonlight-wash {
+  background: var(--moonlight-glow);
+}
+
+/* Ground haze — for bottom of viewport atmospheric effect */
+.ground-haze {
+  background: var(--ground-haze);
 }

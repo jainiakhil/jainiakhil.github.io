@@ -1,58 +1,55 @@
 "use client";
 
-import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useEffect, useState } from "react";
-import { ArrowRight, Sparkles, Orbit, Radio } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const headlines = [
-  "Astrophysicist",
-  "Systems Engineer",
-  "GPU Pipeline Architect",
-  "Deep Space Researcher",
-  "Computational Coder",
-];
+const rotatingTitles = ["Astrophysicist", "Stargazer", "Builder", "Explorer", "Dreamer"];
 
 export default function Hero() {
-  const [index, setIndex] = useState(0);
+  const [titleIndex, setTitleIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % headlines.length);
-    }, 3200);
+      setTitleIndex((prev) => (prev + 1) % rotatingTitles.length);
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
+  const scrollToSection = (id: string) => {
+    const el = document.querySelector(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Dreamy, slow entrance animation variants
+  const containerVariants = {
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
-        staggerChildren: 0.18,
-        delayChildren: 0.2,
+        staggerChildren: 0.25, // Stagger elements slowly
       },
     },
   };
 
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 30 },
+  const itemVariants = {
+    hidden: { opacity: 0, y: 25 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+      transition: {
+        duration: 1.2,
+        ease: [0.25, 0.1, 0.25, 1.0] as const, // dreamy easeInOut
+      },
     },
-  };
-
-  const scrollToSection = (id: string) => {
-    const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 overflow-hidden z-10"
     >
-      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center z-10">
+      <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-20">
         
         {/* Left Column: Heading & Text */}
         <motion.div
@@ -61,184 +58,139 @@ export default function Hero() {
           animate="visible"
           className="lg:col-span-7 flex flex-col items-start gap-6 text-left"
         >
-          {/* Scientific Badge */}
-          <motion.div
-            variants={itemVariants}
-            className="flex items-center gap-2 px-3 py-1 rounded-full glass border border-card-border/80 text-[10px] sm:text-xs font-bold uppercase tracking-widest text-accent-primary shadow-sm"
-          >
-            <Radio className="w-3.5 h-3.5 text-accent-primary animate-pulse" />
-            <span>Telemetry Status: Connected</span>
-          </motion.div>
-
-          {/* Staggered Main Title */}
+          {/* Main Display Headline (using font-display for Fredoka warmth) */}
           <motion.h1
             variants={itemVariants}
-            className="font-space text-4xl sm:text-6xl xl:text-7xl font-extrabold tracking-tight text-text-primary leading-[1.08]"
+            className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-text-primary leading-[1.1]"
           >
-            Voyaging through <br />
-            <span className="bg-gradient-to-r from-accent-primary via-sky-300 to-accent-secondary bg-clip-text text-transparent drop-shadow-sm">
-              Cosmic Data
+            hello, I'm{" "}
+            <span className="text-accent-primary relative inline-block transition-all duration-300 hover:text-accent-secondary">
+              Akhil Jaini
             </span>
           </motion.h1>
 
-          {/* Title Rotator */}
+          {/* Rotating Subtitle / Role Tagline */}
           <motion.div
             variants={itemVariants}
-            className="h-12 sm:h-16 flex items-center relative overflow-hidden font-space text-2xl sm:text-4xl font-semibold text-text-secondary"
+            className="h-10 sm:h-12 flex items-center overflow-hidden text-lg sm:text-2xl font-semibold text-accent-secondary"
           >
-            <span className="mr-2.5">I am a</span>
-            <div className="relative h-full flex-1">
+            <span className="mr-2.5 font-sans font-medium text-text-secondary">I am a</span>
+            <div className="relative flex flex-col items-start font-display">
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={headlines[index]}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -15 }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  className="absolute left-0 text-accent-primary font-bold tracking-wide"
+                  key={titleIndex}
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: -20, opacity: 0 }}
+                  transition={{ duration: 0.65, ease: [0.25, 0.1, 0.25, 1.0] as const }}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 whitespace-nowrap"
                 >
-                  {headlines[index]}
+                  {rotatingTitles[titleIndex]}
                 </motion.span>
               </AnimatePresence>
             </div>
           </motion.div>
 
-          {/* Scientific Bio Summary */}
+          {/* Cozy Personal Bio Summary */}
           <motion.p
             variants={itemVariants}
-            className="text-sm sm:text-base text-text-secondary max-w-xl leading-relaxed font-medium"
+            className="text-sm sm:text-base text-text-secondary max-w-xl leading-[1.8] font-medium"
           >
-            Welcome, voyager! I specialize in computational astrophysics and high-performance engineering. I build parallel GPU pipelines to detect sub-millisecond cosmic pulses and create beautiful digital simulators for celestial multi-body dynamics.
+            I'm an astrophysicist who loves building things. I work on finding brief flashes of light from distant galaxies, and I write code to understand how stars move.
           </motion.p>
 
-          {/* Action CTAs */}
+          {/* Warm, Sentence-case Action CTAs */}
           <motion.div
             variants={itemVariants}
             className="flex flex-wrap gap-4 pt-2"
           >
             <button
               onClick={() => scrollToSection("#research")}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-gradient-to-r from-accent-primary to-accent-secondary text-white font-bold text-xs sm:text-sm uppercase tracking-widest shadow-xl hover:shadow-accent-primary/25 hover:scale-103 active:scale-97 transition-all duration-300 cursor-pointer"
+              className="px-6 py-3 rounded-full bg-accent-primary/80 hover:bg-accent-primary text-white font-semibold text-xs sm:text-sm shadow-md hover:shadow-accent-primary/20 hover:shadow-lg transition-all duration-300 cursor-pointer outline-none"
             >
-              Explore Research
-              <ArrowRight className="w-4 h-4" />
+              see my work
             </button>
             <button
               onClick={() => scrollToSection("#contact")}
-              className="px-6 py-3.5 rounded-full glass hover:bg-card-bg/20 text-text-primary font-bold text-xs sm:text-sm uppercase tracking-widest border border-card-border shadow-md active:scale-97 hover:scale-103 transition-all duration-300 cursor-pointer"
+              className="px-6 py-3 rounded-full border border-card-border/80 bg-card-bg/20 text-text-primary hover:bg-card-bg/35 font-semibold text-xs sm:text-sm transition-all duration-300 cursor-pointer shadow-sm outline-none"
             >
-              Get in Touch
+              say hello
             </button>
           </motion.div>
         </motion.div>
 
-        {/* Right Column: Floating Astronaut Graphic (Lottie Placeholder) */}
+        {/* Right Column: Whimsical Telescope Silhouette (Instead of Sci-Fi Astronaut) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1.0] }}
           className="lg:col-span-5 flex items-center justify-center relative select-none"
         >
-          {/* Orbital grid circles underneath the astronaut */}
-          <div className="absolute inset-0 flex items-center justify-center z-0">
-            <div className="w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] rounded-full border border-dashed border-accent-primary/10 animate-spin-slow" />
-            <div className="absolute w-[220px] h-[220px] sm:w-[280px] sm:h-[280px] rounded-full border border-card-border/40" />
-            <motion.div 
-              animate={{ rotate: 360 }}
-              transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-              className="absolute w-[140px] h-[140px] sm:w-[200px] sm:h-[200px] rounded-full border border-dashed border-accent-secondary/15 flex items-start justify-center"
-            >
-              <div className="w-3 h-3 bg-accent-secondary rounded-full -mt-1.5 shadow-[0_0_8px_#ec4899]" />
-            </motion.div>
-          </div>
-
-          {/* Modular Floating Astronaut Graphic (Framer Motion Floating animation) */}
+          {/* PLACEHOLDER: Replace with custom illustration of a person looking through a telescope */}
           <motion.div
             animate={{
-              y: [0, -18, 0],
-              rotate: [0, 1.5, 0],
+              y: [0, -10, 0],
+              rotate: [0, 0.8, 0],
             }}
             transition={{
               repeat: Infinity,
-              duration: 6.5,
+              duration: 8,
               ease: "easeInOut",
             }}
-            className="w-64 h-64 sm:w-80 sm:h-80 relative z-10 flex items-center justify-center"
+            className="w-72 h-72 sm:w-96 sm:h-96 relative z-10 flex items-center justify-center"
           >
-            {/* Custom Astronaut Vector Graphic */}
             <svg
-              className="w-full h-full drop-shadow-[0_10px_30px_rgba(125,211,252,0.15)] filter"
+              className="w-full h-full text-text-primary/70 drop-shadow-[0_12px_40px_rgba(251,191,36,0.08)] filter"
               viewBox="0 0 500 500"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              {/* Helmet Visor Reflection */}
-              <circle cx="250" cy="230" r="100" fill="url(#astronautGrad)" />
-              <path
-                d="M170 200 C170 140, 330 140, 330 200 C330 260, 170 260, 170 200 Z"
-                fill="url(#visorGrad)"
-                className="opacity-95"
-              />
-              {/* Reflection Highlight */}
-              <path
-                d="M190 180 Q 230 155 280 170"
-                stroke="white"
-                strokeWidth="6"
-                strokeLinecap="round"
-                className="opacity-70"
-              />
+              {/* Soft grassy hill base */}
+              <path d="M 50,430 Q 250,405 450,430 L 450,480 L 50,480 Z" fill="currentColor" className="opacity-[0.08]" />
               
-              {/* Suit Body Details */}
-              <rect x="210" y="325" width="80" height="90" rx="40" fill="#E2E8F0" />
-              {/* Control Panel Chest Block */}
-              <rect x="220" y="335" width="60" height="40" rx="5" fill="#1E293B" />
-              <circle cx="235" cy="355" r="5" fill="#3B82F6" className="animate-pulse" />
-              <circle cx="250" cy="355" r="5" fill="#EF4444" />
-              <rect x="260" y="352" width="12" height="6" fill="#10B981" />
+              {/* Tripod Stand */}
+              <line x1="250" y1="280" x2="200" y2="425" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" className="opacity-30" />
+              <line x1="250" y1="280" x2="300" y2="425" stroke="currentColor" strokeWidth="4.5" strokeLinecap="round" className="opacity-30" />
+              <line x1="250" y1="280" x2="250" y2="425" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="opacity-20" />
               
-              {/* Floating Backpack Oxygen tube */}
-              <path
-                d="M190 340 Q 150 370 210 400"
-                stroke="#94A3B8"
-                strokeWidth="10"
-                strokeLinecap="round"
-              />
+              {/* Telescope mount node */}
+              <circle cx="250" cy="280" r="7" fill="currentColor" className="opacity-50" />
               
-              {/* Gradient Definitions */}
+              {/* Rotated Telescope Tube Assembly */}
+              <g transform="rotate(-32 250 280)">
+                {/* Telescope Main Optical Tube */}
+                <rect x="150" y="270" width="190" height="20" rx="3.5" fill="currentColor" className="opacity-60" />
+                {/* Focusing Eyepiece */}
+                <rect x="138" y="273" width="12" height="14" rx="1.5" fill="currentColor" className="opacity-75" />
+                <line x1="130" y1="280" x2="138" y2="280" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                {/* Mini Finderscope */}
+                <rect x="230" y="259" width="38" height="6" rx="1" fill="currentColor" className="opacity-45" />
+                <line x1="238" y1="265" x2="238" y2="270" stroke="currentColor" strokeWidth="2.5" />
+                <line x1="258" y1="265" x2="258" y2="270" stroke="currentColor" strokeWidth="2.5" />
+                {/* Large Lens Dew Shield */}
+                <rect x="335" y="265" width="18" height="30" rx="2.5" fill="currentColor" className="opacity-75" />
+              </g>
+
+              {/* Magical sparkling light stars in the sky */}
+              <circle cx="360" cy="130" r="3.5" fill="#FFFDE7" className="animate-pulse" />
+              <circle cx="415" cy="180" r="2" fill="#E3F2FD" />
+              <circle cx="310" cy="210" r="1.5" fill="#FFFFFF" />
+              <circle cx="270" cy="110" r="2.5" fill="#FFFDE7" className="opacity-80" />
+              
+              {/* Soft atmospheric starlight beam from the aperture */}
+              <path d="M 375,190 L 480,115 L 495,135 L 385,210 Z" fill="url(#starlightBeamGrad)" className="opacity-[0.08]" />
+              
               <defs>
-                <radialGradient id="astronautGrad" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#FFFFFF" />
-                  <stop offset="100%" stopColor="#CBD5E1" />
-                </radialGradient>
-                <linearGradient id="visorGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#0F172A" />
-                  <stop offset="70%" stopColor="#1E1E38" />
-                  <stop offset="100%" stopColor="#312E81" />
+                <linearGradient id="starlightBeamGrad" x1="0" y1="1" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#FFFDF0" stopOpacity="0.45" />
+                  <stop offset="100%" stopColor="#7DD3FC" stopOpacity="0.0" />
                 </linearGradient>
               </defs>
             </svg>
-
-            {/* Glowing sparkle bubbles around astronaut */}
-            <motion.div
-              animate={{ opacity: [0.2, 0.9, 0.2], scale: [0.8, 1.2, 0.8] }}
-              transition={{ repeat: Infinity, duration: 3, delay: 0.5 }}
-              className="absolute top-8 left-10 text-accent-primary/60 text-lg"
-            >
-              ✦
-            </motion.div>
-            <motion.div
-              animate={{ opacity: [0.8, 0.1, 0.8], scale: [1.1, 0.7, 1.1] }}
-              transition={{ repeat: Infinity, duration: 4, delay: 1 }}
-              className="absolute bottom-12 right-6 text-accent-secondary/60 text-md"
-            >
-              ✦
-            </motion.div>
           </motion.div>
         </motion.div>
-      </div>
 
-      {/* Decorative Bottom Soft Gradient Ring */}
-      <div className="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-background to-transparent z-10 pointer-events-none" />
+      </div>
     </section>
   );
 }

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { dataService } from "src/lib/dataService";
 import { Publication } from "src/types/portfolio";
-import { Search, Copy, Check, ExternalLink, BookOpen, Clock, Tag } from "lucide-react";
+import { Search, Copy, Check, ExternalLink, Clock, Tag } from "lucide-react";
 
 export default function Publications() {
   const [pubs, setPubs] = useState<Publication[]>([]);
@@ -23,7 +23,6 @@ export default function Publications() {
   }, []);
 
   const handleCopyCitation = (pub: Publication) => {
-    // Generates high-fidelity APA citation format
     const citation = `${pub.authors} (${pub.year}). "${pub.title}." ${pub.journal}.${
       pub.doi ? ` DOI: https://doi.org/${pub.doi}` : ""
     }`;
@@ -57,31 +56,44 @@ export default function Publications() {
   }
 
   return (
-    <section id="publications" className="py-24 px-6 relative overflow-hidden bg-background">
-      <div className="max-w-7xl mx-auto z-10 relative">
+    <section id="publications" className="py-24 px-6 relative overflow-hidden z-0">
+      {/* Drifting Clouds (Z-Sandwich: z-20) */}
+      <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden select-none">
+        <motion.div
+          animate={{ x: ["-20%", "120%"] }}
+          transition={{ repeat: Infinity, duration: 85, ease: "linear" }}
+          className="absolute top-16 left-0 w-80 h-28 opacity-35 sm:opacity-45"
+        >
+          <svg className="w-full h-full text-background-secondary/30 fill-current filter blur-xl" viewBox="0 0 300 120">
+            <path d="M 30 90 C 30 70, 60 60, 80 60 C 100 30, 160 20, 200 50 C 230 35, 270 50, 270 80 C 285 80, 295 90, 295 100 C 295 110, 30 110, 30 90 Z" />
+          </svg>
+        </motion.div>
+      </div>
+
+      <div className="max-w-5xl mx-auto z-30 relative">
         
-        {/* Heading */}
-        <div className="flex flex-col items-center text-center mb-16">
-          <h2 className="font-space text-3xl sm:text-5xl font-extrabold text-text-primary tracking-tight">
-            Academic Registry
+        {/* Heading (Z-Sandwich: z-10) */}
+        <div className="flex flex-col items-center text-center mb-16 z-10 relative select-none">
+          <h2 className="font-display text-3xl sm:text-5xl font-semibold text-text-primary tracking-tight">
+            Papers & Publications
           </h2>
-          <div className="w-16 h-1.5 bg-gradient-to-r from-accent-primary to-accent-secondary mt-3 rounded-full" />
-          <p className="text-text-secondary text-xs sm:text-sm font-semibold uppercase tracking-widest mt-3">
-            Scientific Publications & Abstracts
+          <div className="w-12 h-1 bg-accent-primary/40 mt-4 rounded-full" />
+          <p className="text-text-secondary text-sm sm:text-base mt-3 max-w-md">
+            Scientific papers and articles detailing observations of the cosmos
           </p>
         </div>
 
         {/* Filter Controls Bar */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-10 w-full glass p-4 rounded-3xl border border-card-border/80 shadow-md">
+        <div className="flex flex-col sm:flex-row gap-4 items-center justify-between mb-10 w-full dreamcard p-4">
           {/* Search Inputs */}
-          <div className="relative w-full md:max-w-sm">
+          <div className="relative w-full sm:max-w-xs">
             <Search className="w-4 h-4 text-text-secondary absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder="Search title, author, journal..."
+              placeholder="Search papers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 rounded-full bg-background-secondary/10 border border-card-border/80 focus:border-accent-primary/60 outline-none text-xs font-semibold text-text-primary transition-all placeholder:text-text-secondary/60"
+              className="w-full pl-11 pr-4 py-2 rounded-full bg-background-secondary/15 border border-card-border/80 focus:border-accent-primary/60 outline-none text-xs font-semibold text-text-primary transition-all placeholder:text-text-secondary/55"
             />
           </div>
 
@@ -91,10 +103,10 @@ export default function Publications() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-95 ${
+                className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-95 border border-transparent ${
                   selectedCategory === cat
-                    ? "bg-gradient-to-r from-accent-primary to-accent-secondary text-white shadow-md shadow-accent-primary/15"
-                    : "glass border border-card-border text-text-secondary hover:bg-card-bg/20 hover:text-text-primary"
+                    ? "bg-accent-primary/15 border-accent-primary/30 text-accent-primary"
+                    : "text-text-secondary hover:text-text-primary hover:bg-card-bg/25"
                 }`}
               >
                 {cat}
@@ -111,105 +123,98 @@ export default function Publications() {
                 <motion.div
                   key={pub.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.5, delay: index * 0.05 }}
-                  className="glass p-6 rounded-3xl border border-card-border/80 shadow-md flex flex-col lg:flex-row gap-6 items-start text-left hover:border-accent-primary/30 transition-all duration-300"
+                  exit={{ opacity: 0, scale: 0.97 }}
+                  transition={{ duration: 1.2, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1.0] as const }}
+                  className="dreamcard p-6 sm:p-8 flex flex-col gap-4 items-start text-left"
                 >
-                  {/* Category Stamp icon */}
-                  <div className="hidden lg:flex w-24 h-24 rounded-2xl bg-gradient-to-br from-accent-primary/10 to-accent-secondary/5 border border-accent-primary/15 items-center justify-center flex-shrink-0">
-                    <BookOpen className="w-8 h-8 text-accent-primary animate-pulse-slow" />
+                  {/* Meta details */}
+                  <div className="flex flex-wrap items-center gap-3">
+                    <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase text-accent-primary bg-accent-primary/10 border border-accent-primary/25 px-2.5 py-0.5 rounded-md">
+                      <Tag className="w-3 h-3" />
+                      {pub.category}
+                    </span>
+                    <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase text-text-secondary">
+                      <Clock className="w-3 h-3" />
+                      {pub.year}
+                    </span>
+                    <span className="text-[10px] font-semibold text-text-secondary/70 tracking-wide">
+                      {pub.journal}
+                    </span>
                   </div>
 
-                  {/* Main text metadata */}
-                  <div className="flex-1 flex flex-col gap-3">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase text-accent-primary bg-accent-primary/10 border border-accent-primary/25 px-2.5 py-0.5 rounded-md">
-                        <Tag className="w-3 h-3" />
-                        {pub.category}
-                      </span>
-                      <span className="flex items-center gap-1.5 text-[9px] font-bold uppercase text-text-secondary">
-                        <Clock className="w-3 h-3" />
-                        {pub.year}
-                      </span>
-                      <span className="text-[10px] font-semibold text-text-secondary/70 tracking-wide">
-                        {pub.journal}
-                      </span>
-                    </div>
+                  <h3 className="font-display font-semibold text-lg sm:text-xl text-text-primary leading-snug">
+                    {pub.title}
+                  </h3>
+                  
+                  <p className="text-[11px] font-bold text-accent-primary/95">
+                    {pub.authors}
+                  </p>
 
-                    <h3 className="font-space font-extrabold text-lg text-text-primary leading-snug">
-                      {pub.title}
-                    </h3>
-                    
-                    <p className="text-[11px] font-bold text-accent-primary/95">
-                      {pub.authors}
-                    </p>
+                  <p className="text-xs sm:text-sm text-text-secondary leading-relaxed font-normal italic bg-background-secondary/15 p-5 rounded-2xl border border-card-border/50 w-full">
+                    {pub.abstract}
+                  </p>
 
-                    <p className="text-xs text-text-secondary leading-relaxed font-medium bg-background-secondary/5 p-4 rounded-2xl border border-card-border/50">
-                      <strong>Abstract:</strong> {pub.abstract}
-                    </p>
+                  {/* Resources & Citation Copy controls */}
+                  <div className="flex flex-wrap items-center justify-between gap-4 mt-2 border-t border-card-border/40 pt-4 w-full">
+                    {/* Copy Citation button */}
+                    <button
+                      onClick={() => handleCopyCitation(pub)}
+                      className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-95 border ${
+                        copiedId === pub.id
+                          ? "bg-emerald-500/15 border-emerald-500/35 text-emerald-500"
+                          : "dreamcard text-text-secondary hover:text-text-primary"
+                      }`}
+                    >
+                      {copiedId === pub.id ? (
+                        <>
+                          <Check className="w-3.5 h-3.5" />
+                          Citation Copied
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          Copy Citation
+                        </>
+                      )}
+                    </button>
 
-                    {/* Resources & Citation Copy controls */}
-                    <div className="flex flex-wrap items-center justify-between gap-4 mt-2 border-t border-card-border/40 pt-4">
-                      {/* Copy Citation button */}
-                      <button
-                        onClick={() => handleCopyCitation(pub)}
-                        className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer active:scale-95 border ${
-                          copiedId === pub.id
-                            ? "bg-emerald-500/10 border-emerald-500/35 text-emerald-400"
-                            : "glass border-card-border text-text-secondary hover:bg-card-bg/25 hover:text-text-primary"
-                        }`}
-                      >
-                        {copiedId === pub.id ? (
-                          <>
-                            <Check className="w-3.5 h-3.5" />
-                            Citation Copied
-                          </>
-                        ) : (
-                          <>
-                            <Copy className="w-3.5 h-3.5" />
-                            Copy Citation
-                          </>
-                        )}
-                      </button>
-
-                      {/* Resource external links */}
-                      <div className="flex items-center gap-3">
-                        {pub.arxivUrl && (
-                          <a
-                            href={pub.arxivUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg glass border border-card-border text-text-secondary hover:text-text-primary hover:bg-card-bg/20 transition-all cursor-pointer active:scale-95"
-                          >
-                            arXiv
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                        {pub.adsUrl && (
-                          <a
-                            href={pub.adsUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-lg glass border border-card-border text-text-secondary hover:text-text-primary hover:bg-card-bg/20 transition-all cursor-pointer active:scale-95"
-                          >
-                            ADS NASA
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                        {pub.doi && (
-                          <a
-                            href={`https://doi.org/${pub.doi}`}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-widest px-3.5 py-2 rounded-lg bg-gradient-to-r from-accent-primary to-accent-secondary text-white shadow-md transition-all cursor-pointer active:scale-95"
-                          >
-                            DOI
-                            <ExternalLink className="w-3 h-3" />
-                          </a>
-                        )}
-                      </div>
+                    {/* Resource external links (Simple links with underlines) */}
+                    <div className="flex items-center gap-4 text-xs font-semibold">
+                      {pub.arxivUrl && (
+                        <a
+                          href={pub.arxivUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1 text-text-secondary hover:text-accent-primary transition-colors underline decoration-dotted underline-offset-4"
+                        >
+                          arXiv
+                          <ExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      )}
+                      {pub.adsUrl && (
+                        <a
+                          href={pub.adsUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1 text-text-secondary hover:text-accent-primary transition-colors underline decoration-dotted underline-offset-4"
+                        >
+                          NASA ADS
+                          <ExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      )}
+                      {pub.doi && (
+                        <a
+                          href={`https://doi.org/${pub.doi}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex items-center gap-1 text-text-primary hover:text-accent-primary transition-colors underline decoration-dotted underline-offset-4"
+                        >
+                          DOI
+                          <ExternalLink className="w-3 h-3 opacity-60" />
+                        </a>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -218,16 +223,16 @@ export default function Publications() {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-16 glass rounded-3xl border border-card-border"
+                className="text-center py-16 dreamcard"
               >
                 <p className="text-sm font-semibold text-text-secondary">
-                  No matching publications found in the cosmic archives.
+                  No matching publications found.
                 </p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
+        
       </div>
     </section>
   );
