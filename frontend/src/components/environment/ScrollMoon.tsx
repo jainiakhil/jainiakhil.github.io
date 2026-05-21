@@ -2,17 +2,55 @@
 
 import { useScroll, useTransform, motion } from "framer-motion";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Lottie from "lottie-react";
 
 export default function ScrollMoon() {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll();
+  const [animationData, setAnimationData] = useState<any>(null);
+  const lottieRef = useRef<any>(null);
 
-  useEffect(() => setMounted(true), []);
+  // Dynamic Moon Phases Lottie asset fetch to optimize Turbopack loading
+  useEffect(() => {
+    fetch("/Moon Phases.json")
+      .then((res) => {
+        if (!res.ok) throw new Error("Failed to load Moon Phases.json");
+        return res.json();
+      })
+      .then((data) => setAnimationData(data))
+      .catch((err) => console.error("Error loading Moon Lottie file:", err));
+  }, []);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Synchronize Lottie moon frames to exact scroll progress
+  useEffect(() => {
+    if (!lottieRef.current || !animationData) return;
+
+    const currentProgress = scrollYProgress.get();
+    const totalFrames = lottieRef.current.getDuration(true) || 100;
+    lottieRef.current.goToAndStop(currentProgress * totalFrames, true);
+
+    const unsubscribe = scrollYProgress.on("change", (progress) => {
+      const total = lottieRef.current?.getDuration(true) || 100;
+      lottieRef.current?.goToAndStop(progress * total, true);
+    });
+
+    return () => unsubscribe();
+  }, [scrollYProgress, animationData]);
 
   // Slower scroll rotation: only [0, 60] degrees for a barely perceptible movement
   const celestialRotate = useTransform(scrollYProgress, [0, 1], [0, 60]);
+
+  // Scroll-synchronized opacities for the triple-layer moon glow in dark mode
+  // Goes from full brightness (scroll = 0%) to almost invisible (scroll = 50%) and back to full (scroll = 100%)
+  const moonGlow1 = useTransform(scrollYProgress, [0, 0.5, 1], [0.80, 0.04, 0.80]);
+  const moonGlow2 = useTransform(scrollYProgress, [0, 0.5, 1], [0.55, 0.02, 0.55]);
+  const moonGlow3 = useTransform(scrollYProgress, [0, 0.5, 1], [0.30, 0.01, 0.30]);
 
   if (!mounted) return null;
 
@@ -34,32 +72,35 @@ export default function ScrollMoon() {
       */}
       <button
         onClick={() => setTheme(isDark ? "light" : "dark")}
-        className="w-40 h-40 sm:w-52 sm:h-52 rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95"
+        className="w-64 h-64 sm:w-80 sm:h-80 rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95"
         aria-label="Toggle Celestial Cycle (Day/Night)"
       >
         {/* TRIPLE-LAYER GLOW SYSTEM */}
         
-        {/* Layer 1: Inner tight, bright glow (40px blur) */}
-        <div 
-          className={`absolute inset-6 rounded-full transition-all duration-[1200ms] ease-out blur-[30px] opacity-80 ${
+        {/* Layer 1: Inner tight, bright glow (45px blur) */}
+        <motion.div 
+          style={{ opacity: isDark ? moonGlow1 : 0.80 }}
+          className={`absolute inset-10 rounded-full transition-[background-color,box-shadow] duration-[1200ms] ease-out blur-[45px] ${
             isDark 
-              ? "bg-sky-300/30 shadow-[0_0_30px_rgba(224,242,254,0.4)]"
-              : "bg-amber-300/40 shadow-[0_0_35px_rgba(254,240,138,0.5)]"
+              ? "bg-sky-300/30 shadow-[0_0_45px_rgba(224,242,254,0.4)]"
+              : "bg-amber-300/40 shadow-[0_0_50px_rgba(254,240,138,0.5)]"
           }`} 
         />
 
-        {/* Layer 2: Mid bloom (100px blur, medium opacity) */}
-        <div 
-          className={`absolute -inset-2 rounded-full transition-all duration-[1200ms] ease-out blur-[80px] opacity-55 ${
+        {/* Layer 2: Mid bloom (120px blur, medium opacity) */}
+        <motion.div 
+          style={{ opacity: isDark ? moonGlow2 : 0.55 }}
+          className={`absolute -inset-4 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[120px] ${
             isDark 
               ? "bg-sky-400/20"
               : "bg-orange-400/25"
           }`} 
         />
 
-        {/* Layer 3: Outer atmospheric wash (200px blur, extremely subtle, extends far) */}
-        <div 
-          className={`absolute -inset-16 rounded-full transition-all duration-[1200ms] ease-out blur-[160px] opacity-30 ${
+        {/* Layer 3: Outer atmospheric wash (240px blur, extremely subtle, extends far) */}
+        <motion.div 
+          style={{ opacity: isDark ? moonGlow3 : 0.30 }}
+          className={`absolute -inset-24 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[240px] ${
             isDark 
               ? "bg-indigo-500/12"
               : "bg-amber-500/15"
@@ -72,59 +113,28 @@ export default function ScrollMoon() {
         >
           {isDark ? (
             /* 
-              NIGHT: Illustrated Watercolor-Style Moon
+              NIGHT: Illustrated Lottie Moon Phases
             */
-            <svg 
-              className="w-28 h-28 sm:w-36 sm:h-36 filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]"
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Moon Spherical base - warm, soft watercolor glow */}
-              <circle cx="50" cy="50" r="42" fill="url(#moonBodyGrad)" />
-              
-              {/* Illustrated soft craters - reduced contrast */}
-              <circle cx="34" cy="36" r="6" fill="#64748B" className="opacity-[0.08]" />
-              <circle cx="35" cy="37" r="4.5" fill="#334155" className="opacity-[0.10]" />
-              
-              <circle cx="62" cy="42" r="8" fill="#64748B" className="opacity-[0.08]" />
-              <circle cx="60" cy="44" r="6" fill="#334155" className="opacity-[0.10]" />
-              
-              <circle cx="44" cy="65" r="4.5" fill="#64748B" className="opacity-[0.08]" />
-              <circle cx="43" cy="66" r="3" fill="#334155" className="opacity-[0.10]" />
-              
-              <circle cx="56" cy="24" r="4" fill="#334155" className="opacity-[0.07]" />
-              <circle cx="28" cy="56" r="5" fill="#334155" className="opacity-[0.07]" />
-
-              {/* Magical Crescent Shadow Overlay - reduced opacity from 0.75 to 0.4 */}
-              <path 
-                d="M50 8 A42 42 0 1 0 92 50 A36 36 0 1 1 50 8" 
-                fill="url(#moonShadowGrad)" 
-                className="opacity-40"
-              />
-
-              {/* Gradient Definitions */}
-              <defs>
-                {/* Warm, soft cream-yellow base gradient */}
-                <linearGradient id="moonBodyGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FFFFFD" />
-                  <stop offset="45%" stopColor="#FFFDF0" />
-                  <stop offset="100%" stopColor="#FAF7EB" />
-                </linearGradient>
-                {/* Soft, cool twilight shadow gradient */}
-                <linearGradient id="moonShadowGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#7DD3FC" stopOpacity="0.15" />
-                  <stop offset="60%" stopColor="#0F172A" stopOpacity="0.45" />
-                  <stop offset="100%" stopColor="#0B0E1A" stopOpacity="0.7" />
-                </linearGradient>
-              </defs>
-            </svg>
+            animationData ? (
+              <div className="w-44 h-44 sm:w-56 sm:h-56 filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)] relative overflow-hidden pointer-events-none select-none">
+                <Lottie
+                  lottieRef={lottieRef}
+                  animationData={animationData}
+                  loop={false}
+                  autoplay={false}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
+            ) : (
+              /* Fallback glowing circle during loading to prevent layout shifts */
+              <div className="w-44 h-44 sm:w-56 sm:h-56 rounded-full bg-sky-100/10 animate-pulse filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]" />
+            )
           ) : (
             /* 
               DAY: Cozy Ghibli-esque Sun with super slow rays
             */
             <svg 
-              className="w-28 h-28 sm:w-36 sm:h-36 filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
+              className="w-44 h-44 sm:w-56 sm:h-56 filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
               viewBox="0 0 100 100" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"

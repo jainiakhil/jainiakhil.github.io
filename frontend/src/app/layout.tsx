@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Fredoka } from "next/font/google";
 import { ThemeProvider } from "src/components/providers/ThemeProvider";
+import LaserFireflyCursor from "src/components/ui/LaserFireflyCursor";
 import "./globals.css";
+
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -56,6 +58,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           {children}
+          <LaserFireflyCursor />
         </ThemeProvider>
       </body>
     </html>

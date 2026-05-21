@@ -19,6 +19,11 @@
   --cloud-glow-start: #FFFFFF;
   --cloud-glow-mid: #FFEAD2;
   --cloud-glow-end: #F3DCC6;
+
+  /* Grassy hills color variables */
+  --hill-back: #EADA8A;  /* sunlit straw-gold */
+  --hill-mid: #BAC899;   /* soft wheat-sage */
+  --hill-front: #8FA87F; /* beautiful vibrant sage green */
 }
 
 .dark {
@@ -40,6 +45,11 @@
   --cloud-glow-start: #FFFFFF;
   --cloud-glow-mid: #475569;
   --cloud-glow-end: #1E293B;
+
+  /* Grassy hills color variables */
+  --hill-back: #0E1328;  /* deep twilight forest slate */
+  --hill-mid: #0B2226;   /* indigo-teal twilight */
+  --hill-front: #0A3326; /* deep magical pine green */
 }
 
 @theme {
@@ -51,6 +61,10 @@
   --color-text-secondary: var(--text-secondary);
   --color-accent-primary: var(--accent-primary);
   --color-accent-secondary: var(--accent-secondary);
+  
+  --color-hill-back: var(--hill-back);
+  --color-hill-mid: var(--hill-mid);
+  --color-hill-front: var(--hill-front);
   
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-space: var(--font-space-grotesk), sans-serif;
@@ -174,3 +188,57 @@ html, body {
 .ground-haze {
   background: var(--ground-haze);
 }
+
+/* Hide default cursor on desktop/mouse devices to show the custom laser pointer */
+@media (pointer: fine) {
+  body, 
+  body * {
+    cursor: none !important;
+  }
+}
+
+/* Custom laser pulsing keyframes and classes for pure CSS performance (100% GPU accelerated) */
+@keyframes laser-core-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.22);
+  }
+}
+
+@keyframes laser-glow-pulse-normal {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.6);
+    opacity: 0.85;
+  }
+}
+
+@keyframes laser-glow-pulse-hovered {
+  0%, 100% {
+    transform: scale(2.0);
+    opacity: 0.65;
+  }
+  50% {
+    transform: scale(2.6);
+    opacity: 0.95;
+  }
+}
+
+.animate-laser-core {
+  animation: laser-core-pulse 1.8s ease-in-out infinite;
+}
+
+.animate-laser-glow-normal {
+  animation: laser-glow-pulse-normal 1.8s ease-in-out infinite;
+}
+
+.animate-laser-glow-hovered {
+  animation: laser-glow-pulse-hovered 0.9s ease-in-out infinite;
+}
+
+

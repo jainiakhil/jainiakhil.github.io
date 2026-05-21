@@ -15,6 +15,7 @@ interface Star {
 
 export default function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const offscreenCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const { resolvedTheme } = useTheme();
 
   useEffect(() => {
@@ -39,14 +40,11 @@ export default function Starfield() {
       const w = window.innerWidth;
       const h = window.innerHeight;
       
-      // Extreme density: Math.floor((width * height) / 300) on desktop and Math.floor((width * height) / 500) on mobile
-      const density = w < 768
-        ? Math.floor((w * h) / 500)
-        : Math.floor((w * h) / 300);
+      // 1. Twinkling stars density: max 250 stars on desktop and 100 on mobile
+      const density = w < 768 ? 100 : 250;
 
+      // Generate base twinkling stars across the canvas
       for (let i = 0; i < density; i++) {
-        // Star sizes range from 0.3px to 1.0px MAX. 
-        // 85% are 0.3-0.5px. 12% are 0.5-0.8px. 3% are 0.8-1.0px (bright stars).
         const sizeRand = Math.random();
         let size = 0.3;
         if (sizeRand < 0.85) {
@@ -57,7 +55,6 @@ export default function Starfield() {
           size = Math.random() * 0.2 + 0.8; // 0.8px - 1.0px (bright stars)
         }
 
-        // Color temperature variation: 15% pale yellow (#FFFDE7), 15% pale blue (#E3F2FD), 70% pure white (#FFFFFF)
         const colorRand = Math.random();
         let color = "#FFFFFF";
         if (colorRand < 0.15) {
@@ -66,11 +63,8 @@ export default function Starfield() {
           color = "#E3F2FD"; // cool pale blue
         }
 
-        // Organic twinkling speed: between 0.003 and 0.03
         const twinkleSpeed = Math.random() * 0.027 + 0.003;
         const phase = Math.random() * Math.PI * 2;
-        
-        // Warm golden pollen drift downward speed in light mode (very slow: 0.03px - 0.08px)
         const driftSpeed = Math.random() * 0.05 + 0.03;
 
         stars.push({
@@ -82,6 +76,147 @@ export default function Starfield() {
           phase,
           driftSpeed,
         });
+      }
+
+      // Enhance Milky Way band with active twinkling stars: Generate 30% more stars
+      const mwAdditionalCount = Math.floor(density * 0.3);
+      for (let i = 0; i < mwAdditionalCount; i++) {
+        let x = 0;
+        let y = 0;
+        let isBand = false;
+        let attempts = 0;
+
+        while (!isBand && attempts < 50) {
+          x = Math.random() * w;
+          y = Math.random() * h;
+          const d = Math.abs(h * x + w * y - w * h) / Math.sqrt(h * h + w * w);
+          if (d < w * 0.15) {
+            isBand = true;
+          }
+          attempts++;
+        }
+
+        const size = Math.random() * 0.4 + 0.8; 
+        const color = Math.random() < 0.5 ? "#E3F2FD" : "#FFFDE7";
+        const twinkleSpeed = Math.random() * 0.027 + 0.003;
+        const phase = Math.random() * Math.PI * 2;
+        const driftSpeed = Math.random() * 0.05 + 0.03;
+
+        stars.push({
+          x,
+          y,
+          size,
+          color,
+          twinkleSpeed,
+          phase,
+          driftSpeed,
+        });
+      }
+
+      // 2. Pre-render the thousands of STATIC stars onto an offscreen canvas
+      if (typeof document !== "undefined") {
+        const offscreen = document.createElement("canvas");
+        offscreen.width = w;
+        offscreen.height = h;
+        const oCtx = offscreen.getContext("2d");
+        if (oCtx) {
+          // Restore high density of static stars (no per-frame overhead!)
+          const staticDensity = w < 768
+            ? Math.floor((w * h) / 500)
+            : Math.floor((w * h) / 300);
+
+          for (let i = 0; i < staticDensity; i++) {
+            const sizeRand = Math.random();
+            let size = 0.3;
+            if (sizeRand < 0.85) {
+              size = Math.random() * 0.2 + 0.3;
+            } else if (sizeRand < 0.97) {
+              size = Math.random() * 0.3 + 0.5;
+            } else {
+              size = Math.random() * 0.2 + 0.8;
+            }
+
+            const colorRand = Math.random();
+            let color = "#FFFFFF";
+            if (colorRand < 0.15) {
+              color = "#FFFDE7";
+            } else if (colorRand < 0.30) {
+              color = "#E3F2FD";
+            }
+
+            const starX = Math.random() * w;
+            const starY = Math.random() * h;
+            const fadeFactor = starY > h * 0.6 
+              ? Math.max(0, 1 - (starY - h * 0.6) / (h * 0.4)) 
+              : 1;
+
+            // Faint static opacities so they sit elegantly in the background
+            const alpha = (0.15 + Math.random() * 0.55) * fadeFactor;
+            if (alpha <= 0.01) continue;
+
+            oCtx.beginPath();
+            oCtx.arc(starX, starY, size, 0, Math.PI * 2);
+            oCtx.fillStyle = color === "#FFFDE7" 
+              ? `rgba(255, 253, 231, ${alpha})` 
+              : color === "#E3F2FD" 
+              ? `rgba(227, 242, 253, ${alpha})` 
+              : `rgba(255, 255, 255, ${alpha})`;
+            oCtx.fill();
+
+            // Concentric static glow for very bright stars
+            if (size > 0.8) {
+              oCtx.beginPath();
+              oCtx.arc(starX, starY, size * 2.8, 0, Math.PI * 2);
+              oCtx.fillStyle = color === "#FFFDE7"
+                ? `rgba(255, 253, 231, ${alpha * 0.12})`
+                : color === "#E3F2FD"
+                ? `rgba(227, 242, 253, ${alpha * 0.12})`
+                : `rgba(224, 242, 254, ${alpha * 0.12})`;
+              oCtx.fill();
+            }
+          }
+
+          // Generate static Milky Way band stars
+          const mwStaticCount = Math.floor(staticDensity * 0.3);
+          for (let i = 0; i < mwStaticCount; i++) {
+            let x = 0;
+            let y = 0;
+            let isBand = false;
+            let attempts = 0;
+
+            while (!isBand && attempts < 50) {
+              x = Math.random() * w;
+              y = Math.random() * h;
+              const d = Math.abs(h * x + w * y - w * h) / Math.sqrt(h * h + w * w);
+              if (d < w * 0.15) {
+                isBand = true;
+              }
+              attempts++;
+            }
+
+            const size = Math.random() * 0.4 + 0.8;
+            const color = Math.random() < 0.5 ? "#E3F2FD" : "#FFFDE7";
+            const fadeFactor = y > h * 0.6 
+              ? Math.max(0, 1 - (y - h * 0.6) / (h * 0.4)) 
+              : 1;
+
+            const alpha = (0.2 + Math.random() * 0.55) * fadeFactor;
+            if (alpha <= 0.01) continue;
+
+            oCtx.beginPath();
+            oCtx.arc(x, y, size, 0, Math.PI * 2);
+            oCtx.fillStyle = color === "#E3F2FD" ? `rgba(227, 242, 253, ${alpha})` : `rgba(255, 253, 231, ${alpha})`;
+            oCtx.fill();
+
+            oCtx.beginPath();
+            oCtx.arc(x, y, size * 2.8, 0, Math.PI * 2);
+            oCtx.fillStyle = color === "#E3F2FD" 
+              ? `rgba(227, 242, 253, ${alpha * 0.12})` 
+              : `rgba(255, 253, 231, ${alpha * 0.12})`;
+            oCtx.fill();
+          }
+        }
+        offscreenCanvasRef.current = offscreen;
       }
     };
 
@@ -115,61 +250,58 @@ export default function Starfield() {
         ctx.fillStyle = gradient;
         ctx.fillRect(0, 0, width, height);
         ctx.restore();
+
+        // Draw pre-rendered static background stars in 1 single, GPU-composited draw call (0% CPU impact)
+        if (offscreenCanvasRef.current) {
+          ctx.drawImage(offscreenCanvasRef.current, 0, 0);
+        }
       }
 
-      // 2. Render and animate stars
-      stars.forEach((star) => {
-        // Twinkling logic
-        if (!prefersReducedMotion) {
-          star.phase += star.twinkleSpeed;
-        } else {
-          star.phase += 0.001; // barely moving shimmer for reduced motion
-        }
-
-        // Calculate current alpha based on phase
-        const baseAlpha = 0.5 + Math.sin(star.phase) * 0.4; // ranges 0.1 to 0.9
-
-        // Light mode: golden pollen particles drift slowly downward
-        if (!isDark && !prefersReducedMotion) {
-          star.y += star.driftSpeed;
-          if (star.y > height) {
-            star.y = 0;
-            star.x = Math.random() * width;
+      // 2. Render and animate stars (only in dark mode)
+      if (isDark) {
+        stars.forEach((star) => {
+          // Twinkling logic
+          if (!prefersReducedMotion) {
+            star.phase += star.twinkleSpeed;
+          } else {
+            star.phase += 0.001; // barely moving shimmer for reduced motion
           }
-        }
 
-        // Draw star
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+          // Calculate current alpha based on phase
+          const baseAlpha = 0.5 + Math.sin(star.phase) * 0.4; // ranges 0.1 to 0.9
 
-        if (isDark) {
+          // Horizon fade factor: smooth gradient to zero visibility in the bottom 40%
+          const fadeFactor = star.y > height * 0.6 
+            ? Math.max(0, 1 - (star.y - height * 0.6) / (height * 0.4)) 
+            : 1;
+          const currentAlpha = baseAlpha * fadeFactor;
+
+          // Draw star core
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+
           // Dark Mode: Soft white, pale yellow, or pale blue stars
           ctx.fillStyle = star.color === "#FFFDE7" 
-            ? `rgba(255, 253, 231, ${baseAlpha})` 
+            ? `rgba(255, 253, 231, ${currentAlpha})` 
             : star.color === "#E3F2FD" 
-            ? `rgba(227, 242, 253, ${baseAlpha})` 
-            : `rgba(255, 255, 255, ${baseAlpha})`;
+            ? `rgba(227, 242, 253, ${currentAlpha})` 
+            : `rgba(255, 255, 255, ${currentAlpha})`;
           
-          // Faint glow for the brightest stars (size > 0.8px)
+          ctx.fill();
+
+          // High-performance concentric aura for the brightest stars (size > 0.8px) instead of slow CPU shadowBlur
           if (star.size > 0.8) {
-            ctx.shadowBlur = 3;
-            ctx.shadowColor = "rgba(224, 242, 254, 0.4)";
-          } else {
-            ctx.shadowBlur = 0;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.size * 2.8, 0, Math.PI * 2);
+            ctx.fillStyle = star.color === "#FFFDE7" 
+              ? `rgba(255, 253, 231, ${currentAlpha * 0.18})` 
+              : star.color === "#E3F2FD" 
+              ? `rgba(227, 242, 253, ${currentAlpha * 0.18})` 
+              : `rgba(224, 242, 254, ${currentAlpha * 0.18})`;
+            ctx.fill();
           }
-        } else {
-          // Light Mode: Warm golden/amber pollen particles
-          // A mix of deep gold and amber
-          const pollenAlpha = baseAlpha * 0.7; // slightly softer in light mode
-          ctx.fillStyle = star.color === "#FFFDE7"
-            ? `rgba(245, 158, 11, ${pollenAlpha})` // Golden amber
-            : `rgba(217, 119, 6, ${pollenAlpha})`;  // Warm bronze-gold
-
-          ctx.shadowBlur = 0;
-        }
-
-        ctx.fill();
-      });
+        });
+      }
 
       animationFrameId = requestAnimationFrame(animate);
     };

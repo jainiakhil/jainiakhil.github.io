@@ -2,6 +2,7 @@ import Navbar from "src/components/layout/Navbar";
 import Starfield from "src/components/environment/Starfield";
 import Atmosphere from "src/components/environment/Atmosphere";
 import ScrollMoon from "src/components/environment/ScrollMoon";
+import ForegroundGrass from "src/components/environment/ForegroundGrass";
 import Hero from "src/components/home/Hero";
 import About from "src/components/home/About";
 import Timeline from "src/components/home/Timeline";
@@ -18,6 +19,7 @@ export default function Home() {
       <Starfield />
       <Atmosphere />
       <ScrollMoon />
+      <ForegroundGrass />
 
       {/* 2. Layout Navigation */}
       <Navbar />

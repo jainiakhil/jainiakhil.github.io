@@ -127,9 +127,9 @@ export default function Atmosphere() {
 
         {/* 4. Background Cloud Layers (Layers 1 & 2) */}
         
-        {/* Layer 1 (Far Background): Huge, edge-blur (blur-[6px]), slow 220s, right-to-left */}
+        {/* Layer 1 (Far Background): Huge, edge-blur (blur-[6px]), slow 220s, left-to-right */}
         <motion.div
-          animate={{ x: ["100vw", "-100vw"] }}
+          animate={{ x: ["-100vw", "100vw"] }}
           transition={{ repeat: Infinity, duration: 220, ease: "linear" }}
           className="absolute top-[6%] left-0 w-[450px] sm:w-[600px] h-[150px] sm:h-[200px] blur-[6px]"
         >
@@ -200,7 +200,7 @@ export default function Atmosphere() {
       {/* Foreground Cloud Layer 3 (z-index: z-[25] - passes in FRONT of headings but BEHIND moon/sun) */}
       <div className="fixed inset-0 z-[25] overflow-hidden pointer-events-none select-none">
         <motion.div
-          animate={{ x: ["100vw", "-100vw"] }}
+          animate={{ x: ["-100vw", "100vw"] }}
           transition={{ repeat: Infinity, duration: 75, ease: "linear" }}
           className="absolute top-[10%] left-0 w-[260px] sm:w-[350px] h-[100px] sm:h-[130px] blur-[4px]"
         >
