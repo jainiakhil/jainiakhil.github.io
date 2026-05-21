@@ -14,6 +14,11 @@
   --sky-gradient: linear-gradient(180deg, #FEF0E0 0%, #FCE4CE 40%, #F5EDE4 100%);
   --star-color: rgba(200, 160, 80, 0.25);
   --ground-haze: linear-gradient(0deg, rgba(200, 170, 130, 0.08) 0%, transparent 30%);
+  
+  /* Cloud light interaction variables (sunlit gold-peach) */
+  --cloud-glow-start: #FFFFFF;
+  --cloud-glow-mid: #FFEAD2;
+  --cloud-glow-end: #F3DCC6;
 }
 
 .dark {
@@ -30,6 +35,11 @@
   --sky-gradient: linear-gradient(180deg, #06080F 0%, #0B0E1A 100%);
   --star-color: rgba(255, 255, 255, 0.9);
   --ground-haze: linear-gradient(0deg, rgba(20, 25, 45, 0.6) 0%, transparent 25%);
+
+  /* Cloud light interaction variables (moonlit silver-slate) */
+  --cloud-glow-start: #FFFFFF;
+  --cloud-glow-mid: #475569;
+  --cloud-glow-end: #1E293B;
 }
 
 @theme {

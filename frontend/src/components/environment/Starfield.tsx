@@ -185,7 +185,7 @@ export default function Starfield() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 -z-20 pointer-events-none transition-opacity duration-1000 select-none"
+      className="fixed inset-0 z-[1] pointer-events-none transition-opacity duration-1000 select-none"
     />
   );
 }

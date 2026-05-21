@@ -50,15 +50,40 @@ export default function Atmosphere() {
 
   const isDark = resolvedTheme === "dark";
 
-  // Cloud styling classes
-  const cloudColorClass = isDark
-    ? "text-slate-300 fill-current"
-    : "text-orange-100 fill-current";
-
   return (
     <>
-      {/* Background Atmosphere Layers (z-index: -10) */}
-      <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none">
+      {/* Shared SVG Linear Gradients Definition (Hidden) */}
+      <svg className="absolute w-0 h-0 pointer-events-none select-none" aria-hidden="true">
+        <defs>
+          {/* Gradient for Cloud 1 (pointing from top-right light source to bottom-left shadow) */}
+          <linearGradient id="cloudGrad-1" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--cloud-glow-start)" stopOpacity="0.80" />
+            <stop offset="60%" stopColor="var(--cloud-glow-mid)" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="var(--cloud-glow-end)" stopOpacity="0.30" />
+          </linearGradient>
+          {/* Gradient for Cloud 2 */}
+          <linearGradient id="cloudGrad-2" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--cloud-glow-start)" stopOpacity="0.85" />
+            <stop offset="55%" stopColor="var(--cloud-glow-mid)" stopOpacity="0.60" />
+            <stop offset="100%" stopColor="var(--cloud-glow-end)" stopOpacity="0.35" />
+          </linearGradient>
+          {/* Gradient for Cloud 3 */}
+          <linearGradient id="cloudGrad-3" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--cloud-glow-start)" stopOpacity="0.90" />
+            <stop offset="50%" stopColor="var(--cloud-glow-mid)" stopOpacity="0.65" />
+            <stop offset="100%" stopColor="var(--cloud-glow-end)" stopOpacity="0.40" />
+          </linearGradient>
+          {/* Gradient for Cloud 4 */}
+          <linearGradient id="cloudGrad-4" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="var(--cloud-glow-start)" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="var(--cloud-glow-mid)" stopOpacity="0.70" />
+            <stop offset="100%" stopColor="var(--cloud-glow-end)" stopOpacity="0.45" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      {/* Background Atmosphere Layers (z-index: z-[2] - sits above stars but below content) */}
+      <div className="fixed inset-0 z-[2] overflow-hidden pointer-events-none select-none">
         
         {/* 1. Moonlight / Sunlight radial halo (emanating from top-right) */}
         <div
@@ -100,38 +125,27 @@ export default function Atmosphere() {
           }}
         />
 
-        {/* 4. Background Cloud Layers (Layers 1, 2, 3) */}
+        {/* 4. Background Cloud Layers (Layers 1 & 2) */}
         
-        {/* Layer 1 (Far Background): Huge, blur-3xl, opacity-12, slow 200s, right-to-left */}
+        {/* Layer 1 (Far Background): Huge, edge-blur (blur-[6px]), slow 220s, right-to-left */}
         <motion.div
-          animate={{ x: ["50vw", "-100vw"] }}
-          transition={{ repeat: Infinity, duration: 200, ease: "linear" }}
-          className="absolute top-[5%] left-0 w-[600px] h-[200px] opacity-[0.12] blur-3xl"
+          animate={{ x: ["100vw", "-100vw"] }}
+          transition={{ repeat: Infinity, duration: 220, ease: "linear" }}
+          className="absolute top-[6%] left-0 w-[450px] sm:w-[600px] h-[150px] sm:h-[200px] blur-[6px]"
         >
-          <svg className={`w-full h-full ${cloudColorClass}`} viewBox="0 0 500 200">
-            <path d="M 50,150 C 50,100 90,80 130,90 C 160,50 240,40 290,80 C 330,50 400,70 410,120 C 440,120 470,140 460,170 C 430,190 80,190 50,150 Z" />
+          <svg className="w-full h-full" viewBox="0 0 500 200">
+            <path d="M 50,150 C 50,100 90,80 130,90 C 160,50 240,40 290,80 C 330,50 400,70 410,120 C 440,120 470,140 460,170 C 430,190 80,190 50,150 Z" fill="url(#cloudGrad-1)" />
           </svg>
         </motion.div>
 
-        {/* Layer 2 (Mid-Background): Large, blur-2xl, opacity-18, medium-slow 120s, left-to-right */}
+        {/* Layer 2 (Mid-Background): Large, edge-blur (blur-[5px]), medium-slow 140s, left-to-right */}
         <motion.div
-          animate={{ x: ["-60vw", "100vw"] }}
-          transition={{ repeat: Infinity, duration: 120, ease: "linear" }}
-          className="absolute top-[25%] left-0 w-[450px] h-[160px] opacity-[0.18] blur-2xl"
+          animate={{ x: ["-100vw", "100vw"] }}
+          transition={{ repeat: Infinity, duration: 140, ease: "linear" }}
+          className="absolute top-[18%] left-0 w-[350px] sm:w-[450px] h-[120px] sm:h-[160px] blur-[5px]"
         >
-          <svg className={`w-full h-full ${cloudColorClass}`} viewBox="0 0 350 150">
-            <path d="M 30,110 C 30,80 60,60 90,70 C 110,35 170,30 200,60 C 230,40 280,50 290,90 C 310,95 330,110 320,130 C 290,145 60,145 30,110 Z" />
-          </svg>
-        </motion.div>
-
-        {/* Layer 3 (Mid-ground): Medium, blur-xl, opacity-25, medium 80s, right-to-left */}
-        <motion.div
-          animate={{ x: ["60vw", "-80vw"] }}
-          transition={{ repeat: Infinity, duration: 80, ease: "linear" }}
-          className="absolute bottom-[30%] left-0 w-[350px] h-[130px] opacity-[0.25] blur-xl"
-        >
-          <svg className={`w-full h-full ${cloudColorClass}`} viewBox="0 0 250 120">
-            <path d="M 20,80 C 20,60 40,45 65,50 C 80,25 125,20 145,45 C 165,30 205,40 210,70 C 225,75 235,85 230,100 C 210,110 40,110 20,80 Z" />
+          <svg className="w-full h-full" viewBox="0 0 350 150">
+            <path d="M 30,110 C 30,80 60,60 90,70 C 110,35 170,30 200,60 C 230,40 280,50 290,90 C 310,95 330,110 320,130 C 290,145 60,145 30,110 Z" fill="url(#cloudGrad-2)" />
           </svg>
         </motion.div>
 
@@ -183,15 +197,28 @@ export default function Atmosphere() {
         )}
       </div>
 
-      {/* Foreground Cloud Layer (Layer 4) (z-index: 25 - floats in FRONT of headings) */}
-      <div className="fixed inset-0 z-25 overflow-hidden pointer-events-none select-none">
+      {/* Foreground Cloud Layer 3 (z-index: z-[25] - passes in FRONT of headings but BEHIND moon/sun) */}
+      <div className="fixed inset-0 z-[25] overflow-hidden pointer-events-none select-none">
         <motion.div
-          animate={{ x: ["-50vw", "100vw"] }}
-          transition={{ repeat: Infinity, duration: 55, ease: "linear" }}
-          className="absolute bottom-[10%] left-0 w-[300px] h-[120px] opacity-[0.30] blur-lg"
+          animate={{ x: ["100vw", "-100vw"] }}
+          transition={{ repeat: Infinity, duration: 75, ease: "linear" }}
+          className="absolute top-[10%] left-0 w-[260px] sm:w-[350px] h-[100px] sm:h-[130px] blur-[4px]"
         >
-          <svg className={`w-full h-full ${cloudColorClass}`} viewBox="0 0 250 100">
-            <path d="M 20,70 C 20,50 40,35 60,40 C 75,20 115,15 130,35 C 150,20 185,30 190,55 C 205,60 215,70 210,85 C 190,95 40,95 20,70 Z" />
+          <svg className="w-full h-full" viewBox="0 0 250 120">
+            <path d="M 20,80 C 20,60 40,45 65,50 C 80,25 125,20 145,45 C 165,30 205,40 210,70 C 225,75 235,85 230,100 C 210,110 40,110 20,80 Z" fill="url(#cloudGrad-3)" />
+          </svg>
+        </motion.div>
+      </div>
+
+      {/* Super Foreground Cloud Layer 4 (z-index: z-[45] - passes in FRONT of the moon/sun z-40!) */}
+      <div className="fixed inset-0 z-[45] overflow-hidden pointer-events-none select-none">
+        <motion.div
+          animate={{ x: ["-100vw", "100vw"] }}
+          transition={{ repeat: Infinity, duration: 50, ease: "linear" }}
+          className="absolute top-[14%] left-0 w-[220px] sm:w-[300px] h-[90px] sm:h-[120px] blur-[3px]"
+        >
+          <svg className="w-full h-full" viewBox="0 0 250 100">
+            <path d="M 20,70 C 20,50 40,35 60,40 C 75,20 115,15 130,35 C 150,20 185,30 190,55 C 205,60 215,70 210,85 C 190,95 40,95 20,70 Z" fill="url(#cloudGrad-4)" />
           </svg>
         </motion.div>
       </div>
