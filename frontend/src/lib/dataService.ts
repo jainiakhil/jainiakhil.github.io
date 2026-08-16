@@ -101,17 +101,6 @@ export const dataService = {
   },
 
   async getPublications(): Promise<Publication[]> {
-    if (typeof window !== "undefined") {
-      try {
-        const res = await fetch("/api/publications");
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) return data;
-        }
-      } catch (err) {
-        console.warn("Publications API fetch error, using local fallback:", err);
-      }
-    }
     if (CMS_PROVIDER === "strapi") {
       return fetchStrapi<Publication[]>("publications?populate=*&sort=year:desc", publicationsData);
     }
