@@ -63,7 +63,7 @@ export default function ScrollMoon() {
       // Dreamier, slower spring entrance
       transition={{ type: "spring", stiffness: 35, damping: 18, delay: 0.2 }}
       // Positioned lower and clearly visible (below navbar, not tucked away in the corner)
-      className="fixed right-4 top-20 sm:right-12 sm:top-24 z-40 pointer-events-none select-none"
+      className="fixed right-2 top-16 sm:right-12 sm:top-24 z-40 pointer-events-none select-none"
     >
       {/* 
         Clickable Grand Celestial Body:
@@ -72,7 +72,7 @@ export default function ScrollMoon() {
       */}
       <button
         onClick={() => setTheme(isDark ? "light" : "dark")}
-        className="w-64 h-64 sm:w-80 sm:h-80 rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95"
+        className="w-32 h-32 sm:w-80 sm:h-80 rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95"
         aria-label="Toggle Celestial Cycle (Day/Night)"
       >
         {/* TRIPLE-LAYER GLOW SYSTEM */}
@@ -80,17 +80,17 @@ export default function ScrollMoon() {
         {/* Layer 1: Inner tight, bright glow (45px blur) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow1 : 0.80 }}
-          className={`absolute inset-10 rounded-full transition-[background-color,box-shadow] duration-[1200ms] ease-out blur-[45px] ${
+          className={`absolute inset-4 sm:inset-10 rounded-full transition-[background-color,box-shadow] duration-[1200ms] ease-out blur-[20px] sm:blur-[45px] ${
             isDark 
-              ? "bg-sky-300/30 shadow-[0_0_45px_rgba(224,242,254,0.4)]"
-              : "bg-amber-300/40 shadow-[0_0_50px_rgba(254,240,138,0.5)]"
+              ? "bg-sky-300/30 shadow-[0_0_20px_rgba(224,242,254,0.4)] sm:shadow-[0_0_45px_rgba(224,242,254,0.4)]"
+              : "bg-amber-300/40 shadow-[0_0_22px_rgba(254,240,138,0.5)] sm:shadow-[0_0_50px_rgba(254,240,138,0.5)]"
           }`} 
         />
 
         {/* Layer 2: Mid bloom (120px blur, medium opacity) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow2 : 0.55 }}
-          className={`absolute -inset-4 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[120px] ${
+          className={`absolute -inset-2 sm:-inset-4 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[50px] sm:blur-[120px] ${
             isDark 
               ? "bg-sky-400/20"
               : "bg-orange-400/25"
@@ -100,7 +100,7 @@ export default function ScrollMoon() {
         {/* Layer 3: Outer atmospheric wash (240px blur, extremely subtle, extends far) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow3 : 0.30 }}
-          className={`absolute -inset-24 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[240px] ${
+          className={`absolute -inset-8 sm:-inset-24 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[100px] sm:blur-[240px] ${
             isDark 
               ? "bg-indigo-500/12"
               : "bg-amber-500/15"
@@ -116,7 +116,7 @@ export default function ScrollMoon() {
               NIGHT: Illustrated Lottie Moon Phases
             */
             animationData ? (
-              <div className="w-44 h-44 sm:w-56 sm:h-56 filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)] relative overflow-hidden pointer-events-none select-none">
+              <div className="w-20 h-20 sm:w-56 sm:h-56 filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)] relative overflow-hidden pointer-events-none select-none">
                 <Lottie
                   lottieRef={lottieRef}
                   animationData={animationData}
@@ -127,14 +127,14 @@ export default function ScrollMoon() {
               </div>
             ) : (
               /* Fallback glowing circle during loading to prevent layout shifts */
-              <div className="w-44 h-44 sm:w-56 sm:h-56 rounded-full bg-sky-100/10 animate-pulse filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]" />
+              <div className="w-20 h-20 sm:w-56 sm:h-56 rounded-full bg-sky-100/10 animate-pulse filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]" />
             )
           ) : (
             /* 
               DAY: Cozy Ghibli-esque Sun with super slow rays
             */
             <svg 
-              className="w-44 h-44 sm:w-56 sm:h-56 filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
+              className="w-20 h-20 sm:w-56 sm:h-56 filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
               viewBox="0 0 100 100" 
               fill="none" 
               xmlns="http://www.w3.org/2000/svg"

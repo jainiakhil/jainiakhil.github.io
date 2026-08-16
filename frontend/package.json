@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@lottiefiles/dotlottie-web": "^0.74.0",
     "framer-motion": "^12.39.0",
     "lottie-react": "^2.4.1",
     "lucide-react": "^1.16.0",

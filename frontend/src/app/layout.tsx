@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Inter, Fredoka } from "next/font/google";
 import { ThemeProvider } from "src/components/providers/ThemeProvider";
+import { AnimationProvider } from "src/components/providers/AnimationProvider";
 import LaserFireflyCursor from "src/components/ui/LaserFireflyCursor";
 import "./globals.css";
 
@@ -57,8 +58,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
-          {children}
-          <LaserFireflyCursor />
+          <AnimationProvider>
+            {children}
+            <LaserFireflyCursor />
+          </AnimationProvider>
         </ThemeProvider>
       </body>
     </html>

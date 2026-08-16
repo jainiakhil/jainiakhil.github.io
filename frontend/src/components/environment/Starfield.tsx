@@ -220,6 +220,8 @@ export default function Starfield() {
       }
     };
 
+    let wasPaused = false;
+
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
@@ -229,11 +231,30 @@ export default function Starfield() {
     // Listeners
     window.addEventListener("resize", handleResize);
 
+    // MutationObserver to resume when modal closes
+    const observer = new MutationObserver(() => {
+      const isModal = document.body.classList.contains("modal-open");
+      if (!isModal && wasPaused) {
+        wasPaused = false;
+        animationFrameId = requestAnimationFrame(animate);
+      }
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     // Initialize
     initStars();
 
     // Main animation loop
     const animate = () => {
+      if (document.body.classList.contains("modal-open")) {
+        wasPaused = true;
+        return;
+      }
+
       ctx.clearRect(0, 0, width, height);
       const isDark = resolvedTheme === "dark";
 
@@ -311,6 +332,7 @@ export default function Starfield() {
     return () => {
       window.removeEventListener("resize", handleResize);
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
     };
   }, [resolvedTheme]);
 

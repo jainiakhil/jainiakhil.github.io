@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Lottie from "lottie-react";
+import { useAnimations } from "src/components/providers/AnimationProvider";
 
 interface FireflyPhysics {
   x: number;
@@ -22,9 +23,12 @@ interface FireflyPhysics {
 }
 
 export default function LaserFireflyCursor() {
+  const { animationsEnabled } = useAnimations();
   const [mounted, setMounted] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [animationData, setAnimationData] = useState<any>(null);
+  const [mouseActive, setMouseActive] = useState(false);
+  const [modalActive, setModalActive] = useState(false);
 
   const cursorRef = useRef<HTMLDivElement>(null);
   const cursorCoreRef = useRef<HTMLDivElement>(null);
@@ -94,7 +98,7 @@ export default function LaserFireflyCursor() {
     },
   ]);
 
-  // 1. SSR check and desktop (mouse) detection
+  // 1. SSR check, desktop (mouse) detection, and modal state class observer
   useEffect(() => {
     setMounted(true);
     const mediaQuery = window.matchMedia("(pointer: fine)");
@@ -105,8 +109,23 @@ export default function LaserFireflyCursor() {
     };
 
     mediaQuery.addEventListener("change", handleMediaChange);
+
+    // Initial check for active modal
+    setModalActive(document.body.classList.contains("modal-open"));
+
+    // MutationObserver to track active modals on the body
+    const observer = new MutationObserver(() => {
+      setModalActive(document.body.classList.contains("modal-open"));
+    });
+
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     return () => {
       mediaQuery.removeEventListener("change", handleMediaChange);
+      observer.disconnect();
     };
   }, []);
 
@@ -131,24 +150,29 @@ export default function LaserFireflyCursor() {
   useEffect(() => {
     if (!mounted || !isDesktop) return;
 
-    // Start coordinates in center of screen
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    mouseX.current = centerX;
-    mouseY.current = centerY;
-    targetX.current = centerX;
-    targetY.current = centerY;
-    lastMoveTime.current = Date.now();
-
-    firefliesRef.current.forEach((f) => {
-      f.x = centerX;
-      f.y = centerY;
-    });
-
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.current = e.clientX;
       mouseY.current = e.clientY;
       lastMoveTime.current = Date.now();
+
+      // Enable custom cursor and fireflies upon detecting any active mouse movement
+      setMouseActive((active) => {
+        if (!active) {
+          // Initialize firefly positions instantly at the cursor's entrance coordinates
+          // to prevent an awkward, fast fly-in animation from the center of the screen
+          firefliesRef.current.forEach((f) => {
+            f.x = e.clientX;
+            f.y = e.clientY;
+          });
+          return true;
+        }
+        return active;
+      });
+    };
+
+    const handleMouseLeave = () => {
+      // Deactivate cursor/fireflies when the mouse leaves the browser window entirely
+      setMouseActive(false);
     };
 
     const handleMouseOver = (e: MouseEvent) => {
@@ -188,16 +212,18 @@ export default function LaserFireflyCursor() {
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });
     window.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseleave", handleMouseLeave);
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [mounted, isDesktop]);
 
   // 4. High performance GPU-accelerated direct DOM physics animation loop
   useEffect(() => {
-    if (!mounted || !isDesktop) return;
+    if (!mounted || !isDesktop || !mouseActive) return;
 
     const tick = () => {
       timeRef.current += 1;
@@ -320,10 +346,10 @@ export default function LaserFireflyCursor() {
           while (diff > 180) diff -= 360;
           firefly.rotation = firefly.rotation + diff * 0.08;
 
-          // Add out-of-phase bioluminescent scale and opacity pulsing
+          // Add out-of-phase bioluminescent scale and opacity pulsing (highly subtle scale zoom)
           const pulse = Math.sin(time * 0.08 + idx * 2.0);
-          const currentScale = 0.85 + pulse * 0.22;
-          const currentOpacity = 0.65 + pulse * 0.30;
+          const currentScale = 0.90 + pulse * 0.05; // Extremely subtle variance (0.85 to 0.95)
+          const currentOpacity = 0.65 + pulse * 0.20; // Soft opacity breathing (0.45 to 0.85)
 
           // Combine translation, smooth rotation, and horizontal flip scale
           domRef.style.transform = `translate3d(${firefly.x}px, ${firefly.y}px, 0) rotate(${firefly.rotation}deg) scale(${targetFlip * currentScale}, ${currentScale})`;
@@ -341,9 +367,9 @@ export default function LaserFireflyCursor() {
         cancelAnimationFrame(requestRef.current);
       }
     };
-  }, [mounted, isDesktop]);
+  }, [mounted, isDesktop, mouseActive]);
 
-  if (!mounted || !isDesktop) return null;
+  if (!mounted || !isDesktop || !mouseActive || modalActive) return null;
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden select-none">
@@ -361,8 +387,8 @@ export default function LaserFireflyCursor() {
         />
       </div>
 
-      {/* 2. Three Chasing Fireflies (Only render once animation data is fetched) */}
-      {animationData &&
+      {/* 2. Three Chasing Fireflies (Only render once animation data is fetched and animations are enabled) */}
+      {animationsEnabled && animationData &&
         firefliesRef.current.map((_, idx) => (
           <div
             key={idx}

@@ -3,13 +3,18 @@ import Starfield from "src/components/environment/Starfield";
 import Atmosphere from "src/components/environment/Atmosphere";
 import ScrollMoon from "src/components/environment/ScrollMoon";
 import ForegroundGrass from "src/components/environment/ForegroundGrass";
+import BlackCatPopUp from "src/components/ui/BlackCatPopUp";
+import AnimationToggle from "src/components/ui/AnimationToggle";
 import Hero from "src/components/home/Hero";
 import About from "src/components/home/About";
 import Timeline from "src/components/home/Timeline";
 import Research from "src/components/home/Research";
+import Projects from "src/components/home/Projects";
 import Publications from "src/components/home/Publications";
 import Repos from "src/components/home/Repos";
-import Others from "src/components/home/Others";
+import Awards from "src/components/home/Awards";
+import Outreach from "src/components/home/Outreach";
+import TalksVisits from "src/components/home/TalksVisits";
 import Contact from "src/components/home/Contact";
 
 export default function Home() {
@@ -20,6 +25,8 @@ export default function Home() {
       <Atmosphere />
       <ScrollMoon />
       <ForegroundGrass />
+      <BlackCatPopUp />
+      <AnimationToggle />
 
       {/* 2. Layout Navigation */}
       <Navbar />
@@ -30,14 +37,17 @@ export default function Home() {
         <About />
         <Timeline />
         <Research />
+        <Projects />
         <Publications />
         <Repos />
-        <Others />
+        <Awards />
+        <Outreach />
+        <TalksVisits />
         <Contact />
       </main>
 
-      {/* 4. Soft, warm footer */}
-      <footer className="w-full relative z-10 py-14 px-6 dreamcard text-center">
+      {/* 4. Soft, warm footer with extra bottom padding to clear the foreground grasslands */}
+      <footer className="w-full relative z-10 pt-14 pb-36 px-6 dreamcard text-center">
         <div className="max-w-4xl mx-auto flex flex-col items-center gap-3">
           <span className="font-display text-lg font-semibold text-text-primary">
             Akhil Jaini
@@ -45,9 +55,21 @@ export default function Home() {
           <p className="text-xs sm:text-sm text-text-secondary leading-relaxed max-w-md">
             A quiet corner of the web — sharing stardust, code, and curiosity.
           </p>
-          <p className="text-[10px] text-text-secondary/60 mt-2">
-            © {new Date().getFullYear()} Akhil Jaini
-          </p>
+          <div className="flex items-center gap-2 text-[10.5px] font-medium text-text-secondary/60 mt-4 select-none">
+            <span>Website designed by</span>
+            <a
+              href="https://buckleupgenius.pages.dev/"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block transition-transform duration-300 hover:scale-105 active:scale-95"
+            >
+              <img
+                src="/logoFinalWhite.png"
+                alt="BuckleUpGenius Logo"
+                className="h-10 w-auto object-contain brightness-95 hover:brightness-100 dark:invert-0 invert transition-all duration-300"
+              />
+            </a>
+          </div>
         </div>
       </footer>
     </div>
