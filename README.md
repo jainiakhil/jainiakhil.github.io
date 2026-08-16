@@ -2,13 +2,6 @@
 
 <div align="center">
 
-```
-     .   :   *   .      .       .   *   :   .      .   *
-  *      .        .   ✦   .   *       .        .   ✦   .
-    .   *   ★   .     *       .   *   ★   .     *
-  *  .    .    *  .   .   *   .    .    *  .   .
-```
-
 [![Website](https://img.shields.io/badge/Live%20Site-jainiakhil.github.io-f59e0b?style=for-the-badge&logo=googlechrome&logoColor=white)](https://jainiakhil.github.io)
 [![Next.js](https://img.shields.io/badge/Next.js-16.2.6-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -28,20 +21,6 @@
 ## 🌿 The Philosophy & Aesthetics
 
 This portfolio is hand-crafted with a **Studio Ghibli-inspired, dreamy atmospheric aesthetic**. Combining deep celestial blues, twinkling night skies, organic rolling grassy hills, and soft ambient glows, it transforms a conventional academic curriculum vitae into a tranquil, interactive storytelling journey.
-
-```
-       .             *             .             ★
-            .              .             .
-      ╭──────────────────────────────────────────╮
-      │   "We are all in the gutter, but some   │
-      │    of us are looking at the stars."      │
-      │                     — Oscar Wilde        │
-      ╰──────────────────────────────────────────╯
-            .              .             .
-       *             ★             .             *
-```
-
----
 
 ## ✨ Key Features & Atmospheric Layers
 

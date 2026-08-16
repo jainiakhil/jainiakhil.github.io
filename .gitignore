@@ -37,3 +37,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 **/next-env.d.ts
+
+# Root-level asset files, JSONs, PDFs, PNGs and implementation plans
+/*.json
+/*.lottie
+/*.pdf
+/*.png
+/Implementation_plan*.md
+
+# Frontend markdown files
+/frontend/AGENTS.md
+/frontend/CLAUDE.md
+/frontend/README.md

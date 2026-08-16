@@ -164,7 +164,7 @@ export default function About() {
             </h3>
             <p className="text-sm font-semibold text-accent-secondary mt-1 max-w-xs leading-relaxed flex items-center gap-1 justify-center">
               <Sparkles className="w-3.5 h-3.5 text-accent-primary" />
-              Shenzhen, China
+              Based in Melbourne, Australia
             </p>
           </motion.div>
 
