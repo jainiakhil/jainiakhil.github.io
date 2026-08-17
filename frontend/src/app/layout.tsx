@@ -43,6 +43,12 @@ export const metadata: Metadata = {
     title: "Akhil Jaini — Astrophysicist",
     description: "A dreamy personal portfolio sharing astrophysical research, code, and adventures under the stars.",
   },
+  verification: {
+    google: "googled5b2147dc019ec79",
+    other: {
+      "google-site-verification": ["googled5b2147dc019ec79.html", "googled5b2147dc019ec79"],
+    },
+  },
 };
 
 export default function RootLayout({
@@ -56,6 +62,10 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} ${fredoka.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <meta name="google-site-verification" content="googled5b2147dc019ec79.html" />
+        <meta name="google-site-verification" content="googled5b2147dc019ec79" />
+      </head>
       <body className="min-h-full flex flex-col font-sans overflow-x-hidden" suppressHydrationWarning>
         <ThemeProvider>
           <AnimationProvider>
