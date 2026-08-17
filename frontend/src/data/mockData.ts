@@ -783,7 +783,7 @@ export const outreachData: OutreachActivity[] = [
     challenges: "Adapting communication style and visual design aesthetics across highly varied client briefs and tight deadlines.",
     outcomes: "Completed dozens of international freelance design and copywriting projects with 5-star feedback.",
     tags: ["Scientific Writing", "Graphic Design", "Technical Editing", "Visual Communication"],
-    externalUrl: "https://www.buckleupgenius.pages.dev",
+    externalUrl: "https://buckleupgenius.pages.dev",
   },
   {
     id: "out-12",
