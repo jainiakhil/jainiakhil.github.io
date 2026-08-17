@@ -162,7 +162,7 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, "#contact")}
                 className="mt-2 text-center text-sm font-semibold py-3 rounded-xl bg-accent-primary/85 text-white hover:bg-accent-primary transition-all duration-300"
               >
-                résumé
+                CV
               </a>
             </nav>
           </motion.div>

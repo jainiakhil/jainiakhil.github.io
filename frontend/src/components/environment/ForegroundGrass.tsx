@@ -40,14 +40,14 @@ export const CAT_CONFIG = {
   size: {
     width: "90px",
     height: "90px",
-    maxWidth: "25vw",
-    maxHeight: "25vw",
+    maxWidth: "17vw",
+    maxHeight: "17vw",
   },
 
   leftSide: {
     gazing: {
       left: "left-[18%] sm:left-[18%]",
-      bottom: "bottom-[25%] sm:bottom-[25%]",
+      bottom: "bottom-[15%] sm:bottom-[25%]",
     },
     standing: {
       left: "left-[13%] sm:left-[13%]",
@@ -55,14 +55,14 @@ export const CAT_CONFIG = {
     },
     telescope: {
       left: "left-[13%] sm:left-[13%]",
-      bottom: "bottom-[25%] sm:bottom-[25%]",
+      bottom: "bottom-[20%] sm:bottom-[25%]",
     }
   },
 
   rightSide: {
     gazing: {
       right: "right-[18%] sm:right-[18%]",
-      bottom: "bottom-[25%] sm:bottom-[25%]",
+      bottom: "bottom-[15%] sm:bottom-[25%]",
     },
     standing: {
       right: "right-[13%] sm:right-[13%]",
@@ -70,7 +70,7 @@ export const CAT_CONFIG = {
     },
     telescope: {
       right: "right-[13%] sm:right-[13%]",
-      bottom: "bottom-[25%] sm:bottom-[25%]",
+      bottom: "bottom-[20%] sm:bottom-[25%]",
     }
   }
 };
@@ -83,8 +83,8 @@ export const CHARACTER_CONFIG = {
     size: {
       width: "240px",
       height: "240px",
-      maxWidth: "35vw",
-      maxHeight: "35vw",
+      maxWidth: "50vw",
+      maxHeight: "50vw",
     },
     leftSide: "left-[6%] sm:left-[10%] bottom-[-15%] sm:bottom-[-15%]",
     rightSide: "right-[6%] sm:right-[10%] bottom-[-6%] sm:bottom-[-6%] scale-x-[-1]"
@@ -108,8 +108,8 @@ export const CHARACTER_CONFIG = {
       maxWidth: "50vw",
       maxHeight: "50vw",
     },
-    leftSide: "left-[8%] sm:left-[5%] bottom-[-12%] sm:bottom-[-12%]",
-    rightSide: "right-[8%] sm:right-[5%] bottom-[-5%] sm:bottom-[-5%] scale-x-[-1]"
+    leftSide: "left-[8%] sm:left-[5%] bottom-[0%] sm:bottom-[-12%]",
+    rightSide: "right-[-8%] sm:right-[5%] bottom-[10%] sm:bottom-[-5%] scale-x-[-1]"
   }
 };
 
