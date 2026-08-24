@@ -914,6 +914,7 @@ export const casualProjectsData: CasualProject[] = [
       "/AstroConvert_Android.jpg"
     ],
     githubUrl: "https://github.com/jainiakhil/AstroConvert",
+    externalUrl: "https://jainiakhil.github.io/AstroConvert/",
     date: "2026",
     methodology: "Developed using Python for core logic, Astropy for high-precision celestial math, and Flet for reactive UI components. Managed platform-specific build configurations with pyproject.toml, resolving native packaging rules to output standalone Windows binaries and Android APKs.",
     challenges: "Configuring Android package extraction for Astropy data assets trapped inside compressed archives, resolving platform-specific path encoding issues, and implementing smart regex parsing to handle ambiguous, highly varied coordinate formats reliably.",

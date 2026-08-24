@@ -62,35 +62,26 @@ export default function ScrollMoon() {
       animate={{ opacity: 1, scale: 1, y: 0 }}
       // Dreamier, slower spring entrance
       transition={{ type: "spring", stiffness: 35, damping: 18, delay: 0.2 }}
-      // Positioned lower and clearly visible (below navbar, not tucked away in the corner)
-      className="fixed right-2 top-16 sm:right-12 sm:top-24 z-40 pointer-events-none select-none"
+      // Positioned higher, clearly visible, shifted 7% right and 12% upwards to prevent overlapping site elements
+      className="fixed right-2 top-10 sm:right-8 sm:top-14 z-40 pointer-events-none select-none translate-x-[7%] -translate-y-[12%]"
     >
-      {/* 
-        Clickable Grand Celestial Body:
-        Serves as the interactive theme switcher.
-        No scaling hover/active states since it's a celestial body, not a button.
-      */}
-      <button
-        onClick={() => setTheme(isDark ? "light" : "dark")}
-        className="w-32 h-32 sm:w-80 sm:h-80 rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95"
-        aria-label="Toggle Celestial Cycle (Day/Night)"
-      >
-        {/* TRIPLE-LAYER GLOW SYSTEM */}
+      <div className="w-[110px] h-[110px] sm:w-[270px] sm:h-[270px] rounded-full flex items-center justify-center relative pointer-events-none">
+        {/* TRIPLE-LAYER GLOW SYSTEM (Purely ambient, non-blocking) */}
         
         {/* Layer 1: Inner tight, bright glow (45px blur) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow1 : 0.80 }}
-          className={`absolute inset-4 sm:inset-10 rounded-full transition-[background-color,box-shadow] duration-[1200ms] ease-out blur-[20px] sm:blur-[45px] ${
+          className={`absolute inset-3 sm:inset-8 rounded-full pointer-events-none transition-[background-color,box-shadow] duration-[1200ms] ease-out blur-[16px] sm:blur-[38px] ${
             isDark 
-              ? "bg-sky-300/30 shadow-[0_0_20px_rgba(224,242,254,0.4)] sm:shadow-[0_0_45px_rgba(224,242,254,0.4)]"
-              : "bg-amber-300/40 shadow-[0_0_22px_rgba(254,240,138,0.5)] sm:shadow-[0_0_50px_rgba(254,240,138,0.5)]"
+              ? "bg-sky-300/30 shadow-[0_0_18px_rgba(224,242,254,0.4)] sm:shadow-[0_0_38px_rgba(224,242,254,0.4)]"
+              : "bg-amber-300/40 shadow-[0_0_20px_rgba(254,240,138,0.5)] sm:shadow-[0_0_42px_rgba(254,240,138,0.5)]"
           }`} 
         />
 
         {/* Layer 2: Mid bloom (120px blur, medium opacity) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow2 : 0.55 }}
-          className={`absolute -inset-2 sm:-inset-4 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[50px] sm:blur-[120px] ${
+          className={`absolute -inset-2 sm:-inset-3 rounded-full pointer-events-none transition-[background-color] duration-[1200ms] ease-out blur-[40px] sm:blur-[100px] ${
             isDark 
               ? "bg-sky-400/20"
               : "bg-orange-400/25"
@@ -100,74 +91,85 @@ export default function ScrollMoon() {
         {/* Layer 3: Outer atmospheric wash (240px blur, extremely subtle, extends far) */}
         <motion.div 
           style={{ opacity: isDark ? moonGlow3 : 0.30 }}
-          className={`absolute -inset-8 sm:-inset-24 rounded-full transition-[background-color] duration-[1200ms] ease-out blur-[100px] sm:blur-[240px] ${
+          className={`absolute -inset-6 sm:-inset-20 rounded-full pointer-events-none transition-[background-color] duration-[1200ms] ease-out blur-[80px] sm:blur-[200px] ${
             isDark 
               ? "bg-indigo-500/12"
               : "bg-amber-500/15"
           }`} 
         />
 
-        <motion.div
-          style={{ rotate: celestialRotate }}
-          className="w-full h-full relative flex items-center justify-center"
+        {/* 
+          Clickable Celestial Body:
+          Reduced by 15% (w-[68px]/sm:w-[190px]) and strictly bounded to the Sun/Moon disk.
+        */}
+        <button
+          onClick={() => setTheme(isDark ? "light" : "dark")}
+          className="w-[68px] h-[68px] sm:w-[190px] sm:h-[190px] rounded-full flex items-center justify-center relative cursor-pointer pointer-events-auto outline-none focus:outline-none transition-opacity duration-300 hover:opacity-95 active:scale-98 z-10"
+          aria-label="Toggle Celestial Cycle (Day/Night)"
+          title="Toggle Day / Night Mode"
         >
-          {isDark ? (
-            /* 
-              NIGHT: Illustrated Lottie Moon Phases
-            */
-            animationData ? (
-              <div className="w-20 h-20 sm:w-56 sm:h-56 filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)] relative overflow-hidden pointer-events-none select-none">
-                <Lottie
-                  lottieRef={lottieRef}
-                  animationData={animationData}
-                  loop={false}
-                  autoplay={false}
-                  style={{ width: "100%", height: "100%" }}
-                />
-              </div>
+          <motion.div
+            style={{ rotate: celestialRotate }}
+            className="w-full h-full relative flex items-center justify-center pointer-events-none"
+          >
+            {isDark ? (
+              /* 
+                NIGHT: Illustrated Lottie Moon Phases
+              */
+              animationData ? (
+                <div className="w-full h-full filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)] relative overflow-hidden pointer-events-none select-none">
+                  <Lottie
+                    lottieRef={lottieRef}
+                    animationData={animationData}
+                    loop={false}
+                    autoplay={false}
+                    style={{ width: "100%", height: "100%" }}
+                  />
+                </div>
+              ) : (
+                /* Fallback glowing circle during loading to prevent layout shifts */
+                <div className="w-full h-full rounded-full bg-sky-100/10 animate-pulse filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]" />
+              )
             ) : (
-              /* Fallback glowing circle during loading to prevent layout shifts */
-              <div className="w-20 h-20 sm:w-56 sm:h-56 rounded-full bg-sky-100/10 animate-pulse filter drop-shadow-[0_0_12px_rgba(224,242,254,0.45)]" />
-            )
-          ) : (
-            /* 
-              DAY: Cozy Ghibli-esque Sun with super slow rays
-            */
-            <svg 
-              className="w-20 h-20 sm:w-56 sm:h-56 filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
-              viewBox="0 0 100 100" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Extremely slow, gentle spin stylized rays */}
-              <path 
-                d="M50 0 L55 25 L80 15 L65 37 L95 32 L70 50 L95 68 L65 63 L80 85 L55 75 L50 100 L45 75 L20 85 L35 63 L5 68 L30 50 L5 32 L35 37 L20 15 L45 25 Z" 
-                fill="url(#sunRaysGrad)" 
-                className="opacity-[0.22] scale-105 origin-center animate-[spin_160s_linear_infinite]"
-              />
+              /* 
+                DAY: Cozy Ghibli-esque Sun with super slow rays
+              */
+              <svg 
+                className="w-full h-full filter drop-shadow-[0_0_15px_rgba(251,146,60,0.45)]"
+                viewBox="0 0 100 100" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Extremely slow, gentle spin stylized rays */}
+                <path 
+                  d="M50 0 L55 25 L80 15 L65 37 L95 32 L70 50 L95 68 L65 63 L80 85 L55 75 L50 100 L45 75 L20 85 L35 63 L5 68 L30 50 L5 32 L35 37 L20 15 L45 25 Z" 
+                  fill="url(#sunRaysGrad)" 
+                  className="opacity-[0.22] scale-105 origin-center animate-[spin_160s_linear_infinite]"
+                />
 
-              {/* Central glowing body */}
-              <circle cx="50" cy="50" r="32" fill="url(#sunBodyGrad)" />
-              
-              {/* Soft interior warm layer */}
-              <circle cx="50" cy="50" r="24" fill="#FFEFEF" className="opacity-40" />
+                {/* Central glowing body */}
+                <circle cx="50" cy="50" r="32" fill="url(#sunBodyGrad)" />
+                
+                {/* Soft interior warm layer */}
+                <circle cx="50" cy="50" r="24" fill="#FFEFEF" className="opacity-40" />
 
-              <defs>
-                <linearGradient id="sunBodyGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FFFDF7" />
-                  <stop offset="35%" stopColor="#FDE047" /> {/* Softer yellow */}
-                  <stop offset="100%" stopColor="#F97316" />
-                </linearGradient>
-                <linearGradient id="sunRaysGrad" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#FEF08A" />
-                  <stop offset="50%" stopColor="#FB923C" />
-                  <stop offset="100%" stopColor="#F43F5E" /> {/* Rosy orange flare */}
-                </linearGradient>
-              </defs>
-            </svg>
-          )}
-        </motion.div>
-      </button>
+                <defs>
+                  <linearGradient id="sunBodyGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#FFFDF7" />
+                    <stop offset="35%" stopColor="#FDE047" /> {/* Softer yellow */}
+                    <stop offset="100%" stopColor="#F97316" />
+                  </linearGradient>
+                  <linearGradient id="sunRaysGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stopColor="#FEF08A" />
+                    <stop offset="50%" stopColor="#FB923C" />
+                    <stop offset="100%" stopColor="#F43F5E" /> {/* Rosy orange flare */}
+                  </linearGradient>
+                </defs>
+              </svg>
+            )}
+          </motion.div>
+        </button>
+      </div>
     </motion.div>
   );
 }

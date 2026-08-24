@@ -228,58 +228,58 @@ export default function Outreach() {
                     </h3>
                   </div>
 
-                  {/* IMAGE CAROUSEL AREA (Full uncropped image display) */}
-                  <div className="w-[calc(100%-3rem)] mx-auto max-h-[48vh] min-h-[220px] sm:min-h-[260px] relative flex-shrink-0 bg-black/20 overflow-hidden group/carousel mt-4 rounded-2xl shadow-sm border border-card-border/60 flex items-center justify-center p-2">
-                    <img
-                      src={selectedOut.images[activeImgIndex] || selectedOut.imageUrl}
-                      alt={`${selectedOut.title} image ${activeImgIndex + 1}`}
-                      className="max-h-[44vh] max-w-full w-auto h-auto object-contain rounded-xl select-none transition-all duration-300 shadow-md"
-                    />
-
-                    {/* Carousel Controls */}
-                    {selectedOut.images && selectedOut.images.length > 1 && (
-                      <>
-                        <button
-                          onClick={(e) => handlePrevImage(e, selectedOut.images.length)}
-                          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
-                          aria-label="Previous image"
-                        >
-                          <ChevronLeft className="w-5 h-5" />
-                        </button>
-
-                        <button
-                          onClick={(e) => handleNextImage(e, selectedOut.images.length)}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
-                          aria-label="Next image"
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-
-                        {/* Slide indicators */}
-                        <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-30">
-                          {selectedOut.images.map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveImgIndex(i);
-                              }}
-                              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                                activeImgIndex === i
-                                  ? "bg-accent-secondary scale-110 w-4"
-                                  : "bg-text-secondary/40 hover:bg-text-secondary/80"
-                              }`}
-                              aria-label={`Go to slide ${i + 1}`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Scrollable Contents */}
+                  {/* Scrollable Contents (with carousel and details) */}
                   <div className="p-6 overflow-y-auto flex flex-col gap-6 text-left scrollbar-thin">
-                    {/* Long description / details */}
+                    {/* IMAGE CAROUSEL AREA (Full uncropped image display, scrolls naturally) */}
+                    <div className="w-full max-h-[42vh] min-h-[180px] sm:min-h-[240px] relative bg-black/20 overflow-hidden group/carousel rounded-2xl shadow-sm border border-card-border/60 flex items-center justify-center p-2 flex-shrink-0">
+                      <img
+                        src={selectedOut.images[activeImgIndex] || selectedOut.imageUrl}
+                        alt={`${selectedOut.title} image ${activeImgIndex + 1}`}
+                        className="max-h-[38vh] max-w-full w-auto h-auto object-contain rounded-xl select-none transition-all duration-300 shadow-md"
+                      />
+
+                      {/* Carousel Controls */}
+                      {selectedOut.images && selectedOut.images.length > 1 && (
+                        <>
+                          <button
+                            onClick={(e) => handlePrevImage(e, selectedOut.images.length)}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
+                            aria-label="Previous image"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+
+                          <button
+                            onClick={(e) => handleNextImage(e, selectedOut.images.length)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
+                            aria-label="Next image"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+
+                          {/* Slide indicators */}
+                          <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-30">
+                            {selectedOut.images.map((_, i) => (
+                              <button
+                                key={i}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveImgIndex(i);
+                                }}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                  activeImgIndex === i
+                                    ? "bg-accent-secondary scale-110 w-4"
+                                    : "bg-text-secondary/40 hover:bg-text-secondary/80"
+                                }`}
+                                aria-label={`Go to slide ${i + 1}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+
+                    {/* About / Description */}
                     <div className="flex flex-col gap-2">
                       <h4 className="font-display text-sm font-semibold text-text-primary flex items-center gap-1.5">
                         <Users className="w-4 h-4 text-accent-secondary" />

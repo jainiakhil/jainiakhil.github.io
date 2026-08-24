@@ -215,66 +215,66 @@ export default function Research() {
                     </h3>
                   </div>
 
-                  {/* IMAGE CAROUSEL AREA (Full uncropped image display) */}
-                  <div className="w-[calc(100%-3rem)] mx-auto max-h-[48vh] min-h-[220px] sm:min-h-[260px] relative flex-shrink-0 bg-black/20 overflow-hidden group/carousel mt-4 rounded-2xl shadow-sm border border-card-border/60 flex items-center justify-center p-2">
-                    {/* Active Slide Image */}
-                    <img
-                      src={selectedProj.images && selectedProj.images[activeImgIndex] ? selectedProj.images[activeImgIndex] : selectedProj.imageUrl}
-                      alt={`${selectedProj.title} image ${activeImgIndex + 1}`}
-                      className="max-h-[44vh] max-w-full w-auto h-auto object-contain rounded-xl select-none transition-all duration-300 shadow-md"
-                    />
-
-                    {/* Carousel Controls (rendered if project has multiple images) */}
-                    {selectedProj.images && selectedProj.images.length > 1 && (
-                      <>
-                        {/* Left Control Arrow */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveImgIndex((prev) => (prev - 1 + selectedProj.images!.length) % selectedProj.images!.length);
-                          }}
-                          className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
-                          aria-label="Previous image"
-                        >
-                          <ChevronLeft className="w-5 h-5" />
-                        </button>
-
-                        {/* Right Control Arrow */}
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setActiveImgIndex((prev) => (prev + 1) % selectedProj.images!.length);
-                          }}
-                          className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
-                          aria-label="Next image"
-                        >
-                          <ChevronRight className="w-5 h-5" />
-                        </button>
-
-                        {/* Image Indicators / Bullets */}
-                        <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-30">
-                          {selectedProj.images.map((_, i) => (
-                            <button
-                              key={i}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveImgIndex(i);
-                              }}
-                              className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
-                                activeImgIndex === i
-                                  ? "bg-accent-primary scale-110 w-4"
-                                  : "bg-text-secondary/40 hover:bg-text-secondary/80"
-                              }`}
-                              aria-label={`Go to slide ${i + 1}`}
-                            />
-                          ))}
-                        </div>
-                      </>
-                    )}
-                  </div>
-
-                  {/* Modal Contents (Scrollable body) */}
+                  {/* Modal Contents (Scrollable body with carousel and content) */}
                   <div className="p-6 overflow-y-auto flex flex-col gap-6 text-left scrollbar-thin">
+                    {/* IMAGE CAROUSEL AREA (Full uncropped image display, scrolls naturally) */}
+                    <div className="w-full max-h-[42vh] min-h-[180px] sm:min-h-[240px] relative bg-black/20 overflow-hidden group/carousel rounded-2xl shadow-sm border border-card-border/60 flex items-center justify-center p-2 flex-shrink-0">
+                      {/* Active Slide Image */}
+                      <img
+                        src={selectedProj.images && selectedProj.images[activeImgIndex] ? selectedProj.images[activeImgIndex] : selectedProj.imageUrl}
+                        alt={`${selectedProj.title} image ${activeImgIndex + 1}`}
+                        className="max-h-[38vh] max-w-full w-auto h-auto object-contain rounded-xl select-none transition-all duration-300 shadow-md"
+                      />
+
+                      {/* Carousel Controls (rendered if project has multiple images) */}
+                      {selectedProj.images && selectedProj.images.length > 1 && (
+                        <>
+                          {/* Left Control Arrow */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveImgIndex((prev) => (prev - 1 + selectedProj.images!.length) % selectedProj.images!.length);
+                            }}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
+                            aria-label="Previous image"
+                          >
+                            <ChevronLeft className="w-5 h-5" />
+                          </button>
+
+                          {/* Right Control Arrow */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveImgIndex((prev) => (prev + 1) % selectedProj.images!.length);
+                            }}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-full bg-background/80 hover:bg-background border border-card-border/60 text-text-primary cursor-pointer active:scale-90 transition-all select-none hover:scale-105 z-30 shadow-lg backdrop-blur-md"
+                            aria-label="Next image"
+                          >
+                            <ChevronRight className="w-5 h-5" />
+                          </button>
+
+                          {/* Image Indicators / Bullets */}
+                          <div className="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-30">
+                            {selectedProj.images.map((_, i) => (
+                              <button
+                                key={i}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveImgIndex(i);
+                                }}
+                                className={`w-2 h-2 rounded-full transition-all duration-300 cursor-pointer ${
+                                  activeImgIndex === i
+                                    ? "bg-accent-primary scale-110 w-4"
+                                    : "bg-text-secondary/40 hover:bg-text-secondary/80"
+                                }`}
+                                aria-label={`Go to slide ${i + 1}`}
+                              />
+                            ))}
+                          </div>
+                        </>
+                      )}
+                    </div>
+
                     {/* General Summary */}
                     <div className="flex flex-col gap-2">
                       <h4 className="font-display text-sm font-semibold text-text-primary flex items-center gap-1.5">
