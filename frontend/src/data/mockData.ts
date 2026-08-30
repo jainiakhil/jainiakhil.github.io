@@ -905,13 +905,13 @@ export const casualProjectsData: CasualProject[] = [
     title: "AstroConvert",
     slug: "astro-convert",
     shortDescription: "A smart, cross-platform app for instant astronomical coordinate conversions across Equatorial, Galactic, and Horizontal systems.",
-    longDescription: "AstroConvert is an intelligent, open-source astronomical coordinate converter designed for astronomers and stargazers. Built with Python and Flet, it automatically detects input coordinate types and formats—including Decimal, HMS, and DMS—without requiring manual selection. AstroConvert instantly computes simultaneous conversions across Equatorial, Galactic, and Horizontal coordinate systems. Featuring one-click clipboard copying, customisable output delimiters, dark mode, and persistent conversion history, it delivers a seamless, high-precision astronomical toolkit available as a portable Windows app and Android APK, with more platform support coming soon!",
+    longDescription: "AstroConvert is an intelligent, open-source astronomical coordinate converter designed for astronomers and stargazers. Built with Python and Flet, it automatically detects input coordinate types and formats—including Decimal, HMS, and DMS—without requiring manual selection. AstroConvert instantly computes simultaneous conversions across Equatorial, Galactic, and Horizontal coordinate systems. Featuring one-click clipboard copying, customisable output delimiters, dark mode, and persistent conversion history, it delivers a seamless, high-precision astronomical toolkit available as a WebApp, a portable Windows app and an Android APK, with more platform support coming soon!",
     tags: ["Python", "Flet", "Coordinate Converter", "Cross-Platform"],
-    thumbnailUrl: "/AstroConvert_Logo.png",
+    thumbnailUrl: "/MyProjects/AstroConvert_Logo.png",
     images: [
-      "/AstroConvert_Logo.png",
-      "/AstroConvert_Windows.png",
-      "/AstroConvert_Android.jpg"
+      "/MyProjects/AstroConvert_Logo.png",
+      "/MyProjects/AstroConvert_Windows.png",
+      "/MyProjects/AstroConvert_Android.jpg"
     ],
     githubUrl: "https://github.com/jainiakhil/AstroConvert",
     externalUrl: "https://jainiakhil.github.io/AstroConvert/",
@@ -927,9 +927,9 @@ export const casualProjectsData: CasualProject[] = [
     shortDescription: "An agentic AI system that autonomously analyses source code and technical documents, executes automated validation workflows, and generates structured review reports",
     longDescription: "Under construction...",
     tags: ["Python", "SQL", "LangGraph", "Ollama", "SQLite", "LLMs", "RAG"],
-    thumbnailUrl: "/agentic-document-analyst.jpeg",
+    thumbnailUrl: "/MyProjects/agentic-document-analyst.jpeg",
     images: [
-      "/agentic-document-analyst.jpeg"
+      "/MyProjects/agentic-document-analyst.jpeg"
     ],
     githubUrl: "https://github.com/jainiakhil/",
     date: "2026",
@@ -944,9 +944,9 @@ export const casualProjectsData: CasualProject[] = [
     shortDescription: "An end-to-end risk forecasting pipeline analysing Sentinel-1 radar imagery to detect active fire fronts under cloud and smoke, deployed via FastAPI with an interactive dashboard.",
     longDescription: "Under construction...",
     tags: ["Python", "PyTorch", "FastAPI", "Docker", "AWS"],
-    thumbnailUrl: "bushfire-early-warning.jpeg",
+    thumbnailUrl: "/MyProjects/bushfire-early-warning.jpeg",
     images: [
-      "bushfire-early-warning.jpeg"
+      "/MyProjects/bushfire-early-warning.jpeg"
     ],
     githubUrl: "https://github.com/jainiakhil/",
     date: "2026",
@@ -956,14 +956,54 @@ export const casualProjectsData: CasualProject[] = [
   },
   {
     id: "casual-4",
+    title: "Apex Drift",
+    slug: "apex-drift",
+    shortDescription: "An autonomous 2D racing engine trained via PyTorch neuroevolution, custom raycast perception, and non-linear drift physics.",
+    longDescription: "Apex Drift is an end-to-end autonomous racing platform built with PyTorch and Pygame. Using deep Neuroevolution and Genetic Algorithms, a population of 100 neural agents learns optimal racing lines, apex clipping, and power-sliding from scratch without labeled data. Driving policies process 7-beam raycasts to output continuous steering and throttle control under rigid-body vehicle dynamics with tire slip physics. The platform features multi-circuit support, spatial audio, live neural activation HUDs, a model checkpoint vault, and a real-time Human vs. AI Duel mode verified by a 26-test suite.",
+    tags: ["Python", "PyGame", "PyTorch", "Neuroevolution", "Deep Learning", "AI", "Computer Vision", "YOLOv8", "LSTMs", "Google Cloud Platform"],
+    thumbnailUrl: "/MyProjects/ApexDrift_1.png",
+    images: [
+      "/MyProjects/ApexDrift_1.png",
+      "/MyProjects/ApexDrift_2.png",
+      "/MyProjects/ApexDrift_3.png",
+      "/MyProjects/ApexDrift_4.png",
+      "/MyProjects/ApexDrift_5.png",
+    ],
+    githubUrl: "https://github.com/jainiakhil/Car_Racing_AI",
+    date: "2026",
+    methodology: "Built custom 2D vehicle physics and raycasting in Pygame, implemented PyTorch CUDA-batched MLPs, and evolved populations using tournament selection, uniform crossover, and Gaussian mutation within a test-driven architecture.",
+    challenges: "Solving spatial perception scaling across distinct track topologies, balancing multi-objective fitness rewards (speed, drift, survival) without premature convergence, and preventing agent freeze-locks through non-linear barrier rebound and apex trail-braking physics.",
+    funFactor: "Pitting yourself in real-time head-to-head duels against high-speed, drifting neural network champions you personally evolved!"
+  },
+  {
+    id: "casual-5",
+    title: "Event Detection & Key Actor Identification in Multi-Person Videos",
+    slug: "event-detection",
+    shortDescription: "Weakly-supervised multi-person sports event recognition and key actor tracking using PyTorch, YOLOv8, attention LSTMs, and Google Cloud Platform.",
+    longDescription: "An end-to-end computer vision platform that detects multi-person sports events and automatically localises key actors without frame-by-frame bounding-box supervision. Re-engineered in PyTorch 2.13 and OpenCV, the system combines YOLOv8 detection, 3.0-second idle motion suppression, bipartite Hungarian tracking, and dual-branch Bidirectional LSTMs with temperature-scaled softmax attention. Trained on 718 authentic broadcast clips across Basketball, Cricket, and Football, it achieves 99.09% event classification accuracy and 100% key actor discovery. The architecture features sport-specific spatial court heatmaps, out-of-distribution uncertainty handling, and is containerised with Docker for serverless deployment on Google Cloud Run.",
+    tags: ["Python", "PyTorch", "Computer Vision", "Deep Learning", "AI", "OpenCV", "YOLOv8", "LSTMs", "Google Cloud Platform"],
+    thumbnailUrl: "/MyProjects/EventDetector_1.png",
+    images: [
+      "/MyProjects/EventDetector_1.png",
+      "/MyProjects/EventDetector_2.png"
+    ],
+    githubUrl: "https://github.com/jainiakhil/Event_Detection_ML",
+    externalUrl: "https://event-detection-ml-109059951226.australia-southeast2.run.app/",
+    date: "2016/2026",
+    methodology: "Sampled video frames feed into YOLOv8 for person detection, followed by 3.0-second idle actor suppression and bipartite Hungarian tracking. Player crops and 32x32 spatial pyramids are encoded via ResNet-18 into dual-branch Bidirectional LSTMs with temperature-scaled softmax attention, generating event classification and sport-specific spatial court heatmaps.",
+    challenges: "Curating 718 real broadcast clips without bounding-box labels, resolving feature projection weight serialisation between standalone backbones and recurrent models, suppressing stationary spectators/umpires via 3.0-second temporal motion filtering, and engineering native H.264 video encoding for seamless cloud browser streaming.",
+    funFactor: "The AI discovers who has the ball or is taking the shot without ever being told who to watch!"
+  },
+  {
+    id: "casual-6",
     title: "Rock-Paper-Scissors Showdown",
     slug: "rock-paper-scissors-sim",
     shortDescription: "An autonomous Pygame battle royale where Rock, Paper, and Scissors clash and convert until one faction conquers.",
     longDescription: "Rock-Paper-Scissors Showdown transforms the classic playground game into a mesmerizing 2D autonomous battle royale using Python and Pygame. Sixty entities—twenty from each faction—are dropped into a circular arena governed by dynamic pursuit, evasion, and boundary physics. Each entity intelligently tracks its prey while fleeing its predator. Upon collision, defeated entities instantly convert to the victor's faction. Featuring elastic ring collisions, dynamic speed boosts for endangered factions, and real-time extinction tracking, the simulation delivers unpredictable, high-stakes momentum swings until the arena is dominated by a single champion.",
     tags: ["Python", "PyGame"],
-    thumbnailUrl: "/RPS_1.png",
+    thumbnailUrl: "/MyProjects/RPS_1.png",
     images: [
-      "/RPS_1.png"
+      "/MyProjects/RPS_1.png"
     ],
     githubUrl: "https://github.com/jainiakhil/Rock-Paper-Scissors_Showdown",
     date: "2023",
