@@ -915,7 +915,7 @@ export const casualProjectsData: CasualProject[] = [
     ],
     githubUrl: "https://github.com/jainiakhil/AstroConvert",
     externalUrl: "https://jainiakhil.github.io/AstroConvert/",
-    date: "2026",
+    date: "2023-2026",
     methodology: "Developed using Python for core logic, Astropy for high-precision celestial math, and Flet for reactive UI components. Managed platform-specific build configurations with pyproject.toml, resolving native packaging rules to output standalone Windows binaries and Android APKs.",
     challenges: "Configuring Android package extraction for Astropy data assets trapped inside compressed archives, resolving platform-specific path encoding issues, and implementing smart regex parsing to handle ambiguous, highly varied coordinate formats reliably.",
     funFactor: "Never scramble between coordinate formats again—just paste any sky coordinates and watch instant magic happen!"
@@ -924,35 +924,37 @@ export const casualProjectsData: CasualProject[] = [
     id: "casual-2",
     title: "Agentic Document & Workflow Analyst",
     slug: "agentic-document-analyst",
-    shortDescription: "An agentic AI system that autonomously analyses source code and technical documents, executes automated validation workflows, and generates structured review reports",
-    longDescription: "Under construction...",
-    tags: ["Python", "SQL", "LangGraph", "Ollama", "SQLite", "LLMs", "RAG"],
-    thumbnailUrl: "/MyProjects/agentic-document-analyst.jpeg",
+    shortDescription: "Stateful multi-agent codebase auditor and document RAG engine built with LangGraph, local Ollama LLMs, ChromaDB, and FastAPI.",
+    longDescription: "An enterprise-grade, privacy-first multi-agent system designed for automated software architecture audits and technical document analysis. Powered by LangGraph, it coordinates a Lead Supervisor directing specialized local Ollama models: a Senior Code Auditor inspecting structural AST layouts and a Documentation Specialist querying indexed PDFs via ChromaDB vector RAG. Featuring real-time WebSocket streaming, hot-swappable LLM providers, and persistent state checkpointing, it operates 100% offline on local hardware without leaking proprietary code or sensitive documents to external cloud APIs.",
+    tags: ["Python", "LangGraph", "Multi-Agent Systems", "Ollama", "LLMs", "RAG", "FastAPIs", "ChromaDB", "Docker", "WebSockets"],
+    thumbnailUrl: "/MyProjects/agentic-document-analyst_1.jpg",
     images: [
-      "/MyProjects/agentic-document-analyst.jpeg"
+      "/MyProjects/agentic-document-analyst_1.jpg",
+      "/MyProjects/agentic-document-analyst_2.jpg"
     ],
-    githubUrl: "https://github.com/jainiakhil/",
+    githubUrl: "https://github.com/jainiakhil/Multi-Agent_Analyst",
     date: "2026",
-    // methodology: "Under construction.",
-    // challenges: "Under construction.",
-    // funFactor: "Under construction."
+    methodology: "Engineered modularly with test-driven development: defined Pydantic state schemas, implemented AST and ChromaDB tools, assembled a cyclic LangGraph state machine, wrapped worker execution loops, and layered an async FastAPI backend verified by 22 comprehensive unit and integration tests.",
+    challenges: "Handling raw JSON string tool-calls emitted by open-source LLMs without native schema binding, resolving async concurrency locks between LangGraph checkpointers and WebSocket streaming, and preventing circular supervisor-worker routing loops through robust state tracking.",
+    funFactor: "Watching your private AI team debate architecture and stream code audits live—completely offline on your laptop!"
   },
   {
     id: "casual-3",
     title: "Bushfire Early Warning System",
     slug: "bushfire-early-warning",
-    shortDescription: "An end-to-end risk forecasting pipeline analysing Sentinel-1 radar imagery to detect active fire fronts under cloud and smoke, deployed via FastAPI with an interactive dashboard.",
-    longDescription: "Under construction...",
-    tags: ["Python", "PyTorch", "FastAPI", "Docker", "AWS"],
-    thumbnailUrl: "/MyProjects/bushfire-early-warning.jpeg",
+    shortDescription: "AN end-to-end SAR bushfire detection pipeline using Sentinel-1 radar, ResNet-34 U-Net, FastAPI + Streamlit, currently validated on synthetic data.",
+    longDescription: "A machine-learning and remote-sensing pipeline that detects active fire fronts through cloud and smoke using Sentinel-1 SAR imagery, which sees where optical and thermal sensors can't. It ingests dual-pol GRD scenes, aligns them with NASA FIRMS hotspots, applies radiometric calibration and speckle filtering, engineers a 6-channel feature stack, and trains a ResNet-34 U-Net under spatial block cross-validation to avoid geographic leakage. Inference is served as a FastAPI microservice returning GeoJSON fire perimeters, with a Streamlit + Folium dashboard, Docker Compose deployment, and GitHub Actions CI. Runs fully offline on synthetic data; real-data validation is in progress.",
+    tags: ["Python", "PyTorch", "FastAPI", "Docker", "Streamlit", "Remote Sensing", "GDAL", "MLFlow", "GitHub Actions"],
+    thumbnailUrl: "/MyProjects/bushfire-early-warning_1.jpg",
     images: [
-      "/MyProjects/bushfire-early-warning.jpeg"
+      "/MyProjects/bushfire-early-warning_1.jpg",
+      "/MyProjects/bushfire-early-warning_2.webp"
     ],
-    githubUrl: "https://github.com/jainiakhil/",
-    date: "2026",
-    // methodology: "Under construction",
-    // challenges: "Preventing environmental steam from corrupting ESP32 hardware pins. Resolved by designing a custom water-tight enclosure resembling a vintage astronomical clock.",
-    // funFactor: "Logs exact study variables like 'Caffeine saturation relative to star-count per hour'."
+    githubUrl: "https://github.com/jainiakhil/Bushfire_Early_Warning_System",
+    date: "2024-2026",
+    methodology: "Calibrated Sentinel-1 backscatter, speckle-filtered it, engineered temporal-difference and texture features, then trained a U-Net with a ResNet-34 encoder under 25 km spatial block CV to estimate true generalisation. Wrapped the exported TorchScript model in a FastAPI service, added drift monitoring, and containerised everything with CI enforcing lint/type/test gates.",
+    challenges: "Preventing spatial data leakage in cross-validation, handling severe class imbalance (fire pixels are <1% of a scene) with focal + Dice loss, keeping GLCM texture extraction and tiled raster I/O memory-bounded on gigabyte-scale scenes, and building a credential-free synthetic pipeline to make the whole thing testable offline.",
+    funFactor: "Teaching radar to *see* fire through smoke — and watching a U-Net learn it from scratch, synthetically!"
   },
   {
     id: "casual-4",
@@ -970,7 +972,7 @@ export const casualProjectsData: CasualProject[] = [
       "/MyProjects/ApexDrift_5.png",
     ],
     githubUrl: "https://github.com/jainiakhil/Car_Racing_AI",
-    date: "2026",
+    date: "2025-2026",
     methodology: "Built custom 2D vehicle physics and raycasting in Pygame, implemented PyTorch CUDA-batched MLPs, and evolved populations using tournament selection, uniform crossover, and Gaussian mutation within a test-driven architecture.",
     challenges: "Solving spatial perception scaling across distinct track topologies, balancing multi-objective fitness rewards (speed, drift, survival) without premature convergence, and preventing agent freeze-locks through non-linear barrier rebound and apex trail-braking physics.",
     funFactor: "Pitting yourself in real-time head-to-head duels against high-speed, drifting neural network champions you personally evolved!"
