@@ -185,7 +185,7 @@ export const projectsData: ResearchProject[] = [
     date: "2023 - 2025",
     methodology: "Engineered algorithmic modules embedded directly into the real-time CRACO candidate pipeline. Implemented World Coordinate System (WCS) pixel-to-sky transformations for automated candidate cross-matching against RACS, ATNF, and RRATalog databases, paired with geometric spatial algorithms that identify and eliminate image-domain aliasing artifacts produced by out-of-field sources.",
     challenges: "Processing tens of millions of non-FRB candidate triggers per 24-hour observation required ultra-fast filtering logic to avoid missing genuine signals while preventing unneeded data downloads that penalise precious telescope on-sky time.",
-    outcomes: "Achieved a >99% pipeline reliability rate while reducing raw candidate triggers by orders of magnitude down to ~2 actionable FRB candidates daily. Enabled reliable, automated real-time voltage downloads, increasing ASKAP's expected transient discovery rate from ~1 per week up to 5 precisely localized bursts per week.",
+    outcomes: "Achieved a >99% pipeline reliability rate while reducing raw candidate triggers by orders of magnitude down to ~2 actionable FRB candidates daily. Enabled reliable, automated real-time voltage downloads, increasing ASKAP's expected transient discovery rate from ~1 per week up to 5 precisely localised bursts per week.",
     publications: [
       {
         title: "The CRAFT coherent (CRACO) upgrade I: System description and results of the 110-ms radio transient pilot survey",
@@ -229,7 +229,7 @@ export const projectsData: ResearchProject[] = [
     images: [
       "/MyResearch/dmd_1.png",
       "/MyResearch/dmd_2.png",
-      "/MyResearch/dmd_3.jpg",
+      "/MyResearch/dm d_3.jpg",
       "/MyResearch/dmd_4.jpg"
     ],
     githubUrl: "https://github.com/jainiakhil/DMD_INSIST_Toolkit",
@@ -277,8 +277,9 @@ export const publicationsData: Publication[] = [
     title: "Enhanced Astrometry of the Rapid ASKAP Continuum Survey: Mid and High Frequency Epochs",
     authors: "Jaini, A., Deller, A. T., Wang, Y., Lenc, E., Duchesne, S. W., & Glowacki, M.",
     abstract: "Accurate radio astrometry is essential for reliable cross-identification of sources across wavelengths, precision localisation of transient events, and the construction of stable all-sky reference catalogues. In this work we extend our astrometric correction framework for the Rapid ASKAP Continuum Survey (RACS) to its mid- and high-frequency epochs (RACS-Mid1 and RACS-High1), building on our previous corrections to the low-frequency surveys.",
-    journal: "Publications of the Astronomical Society of Australia (PASA) [Submitted]",
+    journal: "Publications of the Astronomical Society of Australia (PASA), 43, e108",
     year: 2026,
+    doi: "10.1017/pasa.2026.10252",
     arxivUrl: "https://arxiv.org/abs/2607.18775",
     adsUrl: "https://ui.adsabs.harvard.edu/abs/2026arXiv260718775J/abstract",
     imageUrl: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?auto=format&fit=crop&w=400&q=80",
@@ -309,6 +310,18 @@ export const publicationsData: Publication[] = [
     adsUrl: "https://ui.adsabs.harvard.edu/abs/2021PASA...38...34J/abstract",
     imageUrl: "https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?auto=format&fit=crop&w=400&q=80",
     category: "Instrumentation",
+  },
+  {
+    id: "pub-13",
+    title: "CRAFT HTR2: Polarimetry of 64 non-repeating fast radio bursts from the updated CRAFT catalogue",
+    authors: "Dial, T., Deller, A. T., Glowacki, M., ... & Jaini, A.",
+    abstract: "We present high-time resolution spectro-polarimetric data for 34 new fast radio bursts (FRBs) discovered by the Commensal Real-time Fast Transients (CRAFT) survey on the Australian Square Kilometer Array Pathfinder (ASKAP) during the period May 2024 to June 2026. Most of these were detected by the higher-sensitivity CRAFT COherent (CRACO) detection system that was commissioned on the telescope during this period...",
+    journal: "Monthly Notices of the Royal Astronomical Society (MNRAS) [Submitted]",
+    year: 2026,
+    arxivUrl: "https://arxiv.org/abs/2609.21177",
+    adsUrl: "https://ui.adsabs.harvard.edu/abs/2026arXiv260921177D/abstract",
+    imageUrl: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=400&q=80",
+    category: "FRB",
   },
   {
     id: "pub-4",
@@ -905,7 +918,7 @@ export const casualProjectsData: CasualProject[] = [
     title: "AstroConvert",
     slug: "astro-convert",
     shortDescription: "A smart, cross-platform app for instant astronomical coordinate conversions across Equatorial, Galactic, and Horizontal systems.",
-    longDescription: "AstroConvert is an intelligent, open-source astronomical coordinate converter designed for astronomers and stargazers. Built with Python and Flet, it automatically detects input coordinate types and formats—including Decimal, HMS, and DMS—without requiring manual selection. AstroConvert instantly computes simultaneous conversions across Equatorial, Galactic, and Horizontal coordinate systems. Featuring one-click clipboard copying, customisable output delimiters, dark mode, and persistent conversion history, it delivers a seamless, high-precision astronomical toolkit available as a WebApp, a portable Windows app and an Android APK, with more platform support coming soon!",
+    longDescription: "AstroConvert is an intelligent, open-source astronomical coordinate converter designed for astronomers and stargazers. Built with Python and Flet, it automatically detects input coordinate types and formats (including Decimal, HMS, and DMS) without requiring manual selection. AstroConvert instantly computes simultaneous conversions across Equatorial, Galactic, and Horizontal coordinate systems. Featuring one-click clipboard copying, customisable output delimiters, dark mode, and persistent conversion history, it delivers a seamless, high-precision astronomical toolkit available as a WebApp, a portable Windows app and an Android APK, with more platform support coming soon!",
     tags: ["Python", "Flet", "Coordinate Converter", "Cross-Platform"],
     thumbnailUrl: "/MyProjects/AstroConvert_Logo.png",
     images: [
@@ -1001,7 +1014,7 @@ export const casualProjectsData: CasualProject[] = [
     title: "Rock-Paper-Scissors Showdown",
     slug: "rock-paper-scissors-sim",
     shortDescription: "An autonomous Pygame battle royale where Rock, Paper, and Scissors clash and convert until one faction conquers.",
-    longDescription: "Rock-Paper-Scissors Showdown transforms the classic playground game into a mesmerizing 2D autonomous battle royale using Python and Pygame. Sixty entities—twenty from each faction—are dropped into a circular arena governed by dynamic pursuit, evasion, and boundary physics. Each entity intelligently tracks its prey while fleeing its predator. Upon collision, defeated entities instantly convert to the victor's faction. Featuring elastic ring collisions, dynamic speed boosts for endangered factions, and real-time extinction tracking, the simulation delivers unpredictable, high-stakes momentum swings until the arena is dominated by a single champion.",
+    longDescription: "Rock-Paper-Scissors Showdown transforms the classic playground game into a mesmerizing 2D autonomous battle royale using Python and Pygame. Sixty entities, twenty from each faction, are dropped into a circular arena governed by dynamic pursuit, evasion, and boundary physics. Each entity intelligently tracks its prey while fleeing its predator. Upon collision, defeated entities instantly convert to the victor's faction. Featuring elastic ring collisions, dynamic speed boosts for endangered factions, and real-time extinction tracking, the simulation delivers unpredictable, high-stakes momentum swings until the arena is dominated by a single champion.",
     tags: ["Python", "PyGame"],
     thumbnailUrl: "/MyProjects/RPS_1.png",
     images: [
@@ -1059,7 +1072,18 @@ export const talksData: TalkEntry[] = [
   // CONFERENCES & PRESENTATIONS
   // ==================================================================
   {
-    id: "talk-conf-1",
+    id: "talk-conf-14",
+    title: "Precisely pinpointing FRBs: Sub-arcsecond astrometry with ASKAP",
+    authors: "Jaini, A. (Speaker)",
+    venue: "Dynamic Radio Sky 2026 (DRS2026)",
+    date: "August 2026",
+    type: "conference",
+    talkType: "Contributed Talk",
+    slidesUrl: "https://drive.google.com/file/d/110LNY0G0aMtP8Eu41p4k6yf4lI1hDwt1/view?usp=sharing",
+    externalUrl: "https://drs2026.github.io/Accepted_talks.pdf",
+  },
+  {
+    id: "talk-conf-13",
     title: "Origins of FRB Scattering: Characterising FRB Scattering Timescales via Host Galaxy Sub-structure",
     authors: "Jaini, A. (Speaker)",
     venue: "Fast Radio Bursts 2026 (FRB2026), National Astronomical Observatories, Chinese Academy of Sciences, Guiyang, China",
@@ -1070,7 +1094,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://frb2026.casconf.cn/page/1958752265951121409",
   },
   {
-    id: "talk-conf-2",
+    id: "talk-conf-12",
     title: "Precisely pinpointing FRBs: Sub-arcsecond astrometry with ASKAP",
     authors: "Jaini, A. (Presenter), Deller, A. T., Wang, Y.",
     venue: "Fast Radio Bursts 2026 (FRB2026), National Astronomical Observatories, Chinese Academy of Sciences, Guiyang, China",
@@ -1081,7 +1105,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://frb2026.casconf.cn/page/1958752265951121409",
   },
   {
-    id: "talk-conf-3",
+    id: "talk-conf-11",
     title: "Precisely pinpointing FRBs: Sub-arcsecond astrometry with ASKAP",
     authors: "Jaini, A. (Presenter), Deller, A. T., Wang, Y.",
     venue: "Australia-China Consortium of Astrophysical Research (ACAMAR 11) Workshop, University of Western Australia (UWA), Geraldton, Australia",
@@ -1092,7 +1116,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://acamar.org.au/acamar-11-posters-and-videos/",
   },
   {
-    id: "talk-conf-4",
+    id: "talk-conf-10",
     title: "Precision by Design: Astrometric Pathways for Post-2030 Widefield Arrays",
     authors: "Jaini, A. (Speaker)",
     venue: "Australia Telescope National Facility (ATNF) Futures 2030 Workshop (online), Commonwealth Science and Industrial Research Organisation (CSIRO), Sydney, Australia",
@@ -1103,7 +1127,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://www.atnf.csiro.au/event/atnf-futures-2030-workshop/",
   },
   {
-    id: "talk-conf-5",
+    id: "talk-conf-9",
     title: "Enhanced astrometry of the Rapid ASKAP Continuum Survey for precise localisation of FRBs",
     authors: "Jaini, A. (Speaker), Deller, A. T., Wang, Y.",
     venue: "Astronomical Society of Australia - Annual Science Meeting (ASA ASM 2025), University of Adelaide, Adelaide, Australia",
@@ -1114,7 +1138,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://indico.global/event/12673/contributions/128435",
   },
   {
-    id: "talk-conf-6",
+    id: "talk-conf-8",
     title: "Precise pinpointing of FRBs using ASKAP",
     authors: "Jaini, A. (Speaker), Deller, A. T., Wang, Y.",
     venue: "Fast Radio Bursts 2024 (FRB2024), National Astronomical Research Institute of Thailand (NARIT), Khao Lak, Thailand",
@@ -1135,7 +1159,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://www.mso.anu.edu.au/msss24/#Program",
   },
   {
-    id: "talk-conf-8",
+    id: "talk-conf-6",
     title: "Precise pinpointing of FRBs using ASKAP",
     authors: "Jaini, A. (Speaker), Deller, A. T., Wang, Y.",
     venue: "Astronomical Society of Australia - Annual Science Meeting (ASA ASM 2024, online), International Centre for Radio Astronomy Research, Perth, Australia",
@@ -1146,7 +1170,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://www.icrar.org/conferences/asa2024/abstracts/",
   },
   {
-    id: "talk-conf-9",
+    id: "talk-conf-5",
     title: "Slitless Spectrophotometry of Exoplanet Host Stars",
     authors: "Jaini, A. (Speaker), Sivarani, T.",
     venue: "2023 Astronomical Society of India Conference (ASI 2023), Indian Institute of Technology (IIT-Indore), Indore, India",
@@ -1157,7 +1181,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://www.astron-soc.in/asi2023/sites/default/files/bp_file_uploads/ASI2023_abstract_book1.pdf",
   },
   {
-    id: "talk-conf-10",
+    id: "talk-conf-4",
     title: "Assessing the Performance of a Digital Micromirror Device based Multi-Object Spectrograph for the Indian Spectroscopic and Imaging Space Telescope",
     authors: "Jaini, A. (Speaker), Sriram, S., Subramaniam, A.",
     venue: "Young Astronomers' Meet (YAM 2022), Aryabhatta Research Institute of Observational Sciences (ARIES), Nainital, India",
@@ -1168,7 +1192,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://www.aries.res.in/yam2022/YAM_handbook.pdf",
   },
   {
-    id: "talk-conf-11",
+    id: "talk-conf-3",
     title: "Assessing the Performance of a Digital Micromirror Device based Multi-Object Spectrograph for the Indian Spectroscopic and Imaging Space Telescope",
     authors: "Hoodati, A. (Speaker), Jaini, A., Della, V., Sriram, S.",
     venue: "Annual Conference on Modern Engineering Trends in Astronomy (META 2022), Indian Institute of Astrophysics (IIA), Bangalore, India",
@@ -1178,7 +1202,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://events.iiap.res.in/event/1/contributions/29/contribution.pdf",
   },
   {
-    id: "talk-conf-12",
+    id: "talk-conf-2",
     title: "Simulating a Minimal Space Interferometer Configuration for Low Frequency Radio Imaging",
     authors: "Jaini, A. (Speaker), Deshpande, A., Bitragunta, S.",
     venue: "2020 Union Radio-Scientifique Internationale - Regional Conference on Radio Science (URSI-RCRS 2020), Indian Institute of Technology (IIT-BHU), Varanasi, India",
@@ -1189,7 +1213,7 @@ export const talksData: TalkEntry[] = [
     externalUrl: "https://conferences.iitbhu.ac.in/URSI-RCRS2020/Final%20Booklet.pdf",
   },
   {
-    id: "talk-conf-13",
+    id: "talk-conf-1",
     title: "Best Reference Antenna Selection-based Radio Frequency Interference Mitigation Scheme for Radio Astronomy",
     authors: "Jaini, A. (Speaker), Chandrahasa, J. S. G., Bitragunta, S.",
     venue: "Annual Conference on Modern Engineering Trends in Astronomy (META 2018), National Centre for Radio Astrophysics (NCRA-TIFR), Pune, India",

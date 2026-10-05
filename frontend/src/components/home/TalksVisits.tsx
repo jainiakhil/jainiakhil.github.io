@@ -43,7 +43,7 @@ export default function TalksVisits() {
 
   return (
     <section id="talks-visits" className="pt-10 pb-24 px-6 relative z-0">
-      
+
       {/* Drifting Clouds (Z-Sandwich: z-20) */}
       <div className="absolute inset-0 z-20 pointer-events-none overflow-hidden select-none">
         <motion.div
@@ -58,7 +58,7 @@ export default function TalksVisits() {
       </div>
 
       <div className="max-w-4xl mx-auto z-30 relative">
-        
+
         {/* Heading (Z-Sandwich: z-10) */}
         <div className="flex flex-col items-center text-center mb-16 z-10 relative select-none">
           <h2 className="font-display text-3xl sm:text-5xl font-semibold text-text-primary tracking-tight">
@@ -72,7 +72,7 @@ export default function TalksVisits() {
 
         {/* Collapsible Accordion Container */}
         <div className="flex flex-col gap-6 text-left">
-          
+
           {/* CATEGORY 1: Invited Seminars & Colloquia */}
           <div className="dreamcard overflow-hidden rounded-3xl border border-card-border/50">
             <button
@@ -340,7 +340,7 @@ export default function TalksVisits() {
                 </div>
                 <div>
                   <h3 className="font-display font-medium text-lg text-text-primary">
-                    Observatory Visits
+                    Observatory Proposals & Visits
                   </h3>
                   <p className="text-xs text-text-secondary mt-0.5">
                     Field visits and observation shifts at major radio and optical telescope complexes ({visits.length})

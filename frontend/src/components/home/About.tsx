@@ -171,13 +171,13 @@ export default function About() {
           {/* Right Column: Warm biography narrative */}
           <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col gap-6 text-left">
             <p className="text-sm sm:text-base text-text-secondary leading-[1.8] font-medium">
-              I&apos;ve always been drawn to the night sky. What began as childhood curiosity looking up at the stars eventually turned into a PhD in computational astrophysics. These days, my work revolves around hunting for split-second flashes of light from galaxies billions of light-years away—a task that requires taming massive streams of data, building high-performance algorithms, and engineering systems capable of finding needles in cosmic haystacks.
+              As a kid, I couldn&apos;t stop staring at the night sky. Eventually, the staring turned into a PhD in computational astrophysics. These days I hunt split-second flashes of light from galaxies billions of light-years away, which means taming torrents of data, writing high-performance algorithms, and engineering systems that can find needles in cosmic haystacks.
             </p>
             <p className="text-sm sm:text-base text-text-secondary leading-[1.8] font-medium">
-              But at heart, I&apos;m a builder. For me, code isn&apos;t just logic; it&apos;s a creative tool. I get a real thrill out of taking complex, messy inputs—whether cosmic signals or real-world data—and turning them into elegant machine learning models, fast pipelines, or clear visual experiences.
+              But at heart, I&apos;m a builder. For me, code isn&apos;t just logic; it&apos;s a creative tool. I get a real thrill out of taking messy inputs, whether cosmic signals or real-world data, and turning them into elegant machine learning models, fast pipelines, or clear visual experiences.
             </p>
             <p className="text-sm sm:text-base text-text-secondary leading-[1.8] font-medium">
-              Astrophysics gave me my playground, but the real joy lies in the problem-solving itself. I love taking tools forged in deep-sky research—modelling, software engineering, and machine learning—and using them to solve tricky problems anywhere they pop up. Ultimately, I build to make sense of complex systems, and to turn raw data into something people can actually connect with.
+              Astrophysics gave me my playground, but the real joy lies in the problem-solving itself. I take the tools I sharpened on the deep sky (modelling, software engineering, and machine learning) and point them at tricky problems wherever they pop up. Ultimately, I build to make sense of complex systems, and to turn raw data into something people can actually connect with.
             </p>
           </motion.div>
         </motion.div>

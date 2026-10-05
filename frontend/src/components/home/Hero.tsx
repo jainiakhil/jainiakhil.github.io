@@ -395,7 +395,7 @@ export default function Hero() {
             variants={itemVariants}
             className="text-sm sm:text-base text-text-secondary max-w-xl leading-[1.8] font-medium"
           >
-            I'm a computational astrophysicist who loves building things with data—from discovering cosmic transients to developing software, models, and pipelines that solve complex real world problems.
+            I'm a computational astrophysicist who loves building things with data, from discovering cosmic transients to developing software, models, and pipelines that tackle messy real-world problems.
           </motion.p>
 
           {/* Action CTAs */}
